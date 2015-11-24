@@ -1,0 +1,19 @@
+<ion-view style="" title="Search Results">
+  <ion-content class="has-header" padding="true">
+    <button style="" class="button button-stable button-block  icon ion-funnel">Filter</button>
+
+    <div class="list">
+      <a class="item card" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
+        <div class="item-divider">
+          {{r.title}}
+        </div>
+        <div class="item-text-wrap">
+          {{ r.jobType}}
+        </div>
+        <div class="item-divider">
+          {{ r.location}}
+        </div>
+      </a >
+    </div>
+  </ion-content>
+</ion-view>
