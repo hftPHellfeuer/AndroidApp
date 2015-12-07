@@ -1,12 +1,23 @@
-<ion-view style="" title="My Applicatons" ng-controller="applicationsCtrl">
-    <ion-content class="has-header" padding="true">
-        <ion-list style="">
-            <ion-item style="" class="item-divider">Open</ion-item>
-            <ion-item style="" href="#/jobDetails">Java Development of Application Plaatfrom</ion-item>
-            <ion-item style="" href="#/jobDetails">Introduction of an C# Environment</ion-item>
-            <ion-item style="" class="item-divider">Rejected</ion-item>
-            <ion-item style="" href="#/jobDetails">Create IOs App for parking machines</ion-item>
-        </ion-list>
-    </ion-content>
-</ion-view>
+<ion-view style="" ng-controller="applicationsCtrl" class="has-header">
+  <ion-header-bar>
+    <h1 class="title font-size-24 grey-text">My Applications</h1>
+  </ion-header-bar>
+    <ion-content padding="true" title="My Applications">
+          <div class="list">
+            <a class="item card item-icon-left" data-ng-repeat="r in applications" href="#/jobDetails/{{r.id}}">
+              <i class="icon ion-help"></i>
+
+              <div class="item-divider">
+                {{r.title}}
+              </div>
+              <div class="item-text-wrap">
+                {{ r.field}}
+              </div>
+              <div class="item-divider">
+                {{ r.location}}
+              </div>
+            </a>
+          </div>
+        </ion-content>
+    </ion-view>
 

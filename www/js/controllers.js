@@ -1,11 +1,6 @@
 angular.module('Workforce.controllers', [])
   .controller('loginCtrl', function ($scope,LoginService,$state,$rootScope){
-
     $scope.data={};
-
-
-
-
     $scope.login = function() {
       LoginService.loginUser($scope.data.Email, $scope.data.password).success(function (data) {
         $rootScope.setUsername($scope.data.Email)
@@ -68,6 +63,11 @@ angular.module('Workforce.controllers', [])
   })
 
   .controller('searchResultsCtrl', function ($scope, $stateParams,$ionicSideMenuDelegate, JobService) {
+    $scope.filterSalary = 0;
+    $scope.filterExperience = 0;
+    $scope.filterKeywords = $stateParams.keywords;
+    $scope.filterLocation = $stateParams.location;
+
     JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
     {
       $scope.results = result.data;
@@ -106,20 +106,24 @@ angular.module('Workforce.controllers', [])
   .controller('jobDetailsCtrl', function ($scope, $stateParams, JobService) {
     $scope.job = JobService.getDetails($stateParams.jobId);
     $scope.$apply();
-//    alert(JSON.stringify($scope.job))
 
   })
 
-  .controller('applicationsCtrl', function ($scope,$rootScope,ApplicationService) {
+  .controller('applicationsCtrl', function ($scope,LoginService,ApplicationService) {
     $scope.applications={};
-     $scope.applications = ApplicationService.getApplications($rootScope.UserName);
-
+    ApplicationService.getApplications(LoginService.getUser()).then(function (result)
+    {
+      $scope.applications = result.data;
+    });
   })
 
-  .controller('bookmarksCtrl', function ($scope) {
-
+  .controller('bookmarksCtrl', function ($scope,LoginService,BookmarkService) {
+    $scope.bookmarks={};
+    BookmarkService.getBookmarks(LoginService.getUser()).then(function (result)
+    {
+      $scope.bookmarks = result.data;
+    });
   })
 
-.controller('filterCtrl', function ($scope) {
 
-})
+

@@ -66,7 +66,7 @@ angular.module('Workforce.routes', [])
       })
 
       .state('bookmarks', {
-        url: 'bookmarks',
+        url: '/bookmarks',
         templateUrl: 'templates/bookmarks.html',
         controller: 'bookmarksCtrl'
       });

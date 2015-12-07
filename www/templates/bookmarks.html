@@ -1,12 +1,20 @@
-<ion-view style="" title="My Bookmarks">
-    <ion-content class="has-header" padding="true">
-        <button style="" class="button button-stable button-block  icon ion-funnel">Filter</button>
-        <ion-list style="">
-            <ion-item style="" href="#/jobDetails">Java Development of an Application</ion-item>
-            <ion-item style="" href="#/jobDetails">C# Web Platfrom development</ion-item>
-            <ion-item style="" href="#/jobDetails">Android App for washing machines</ion-item>
-            <ion-item style="" href="#/jobDetails">TV remote control app for IOs</ion-item>
-            <ion-item style="" href="#/jobDetails">Homepage development for consultant</ion-item>
-        </ion-list>
-    </ion-content>
+<ion-view style="" title="My Bookmarks" class="has-header">
+  <ion-header-bar>
+    <h1 class="title font-size-24 grey-text">My Bookmarks</h1>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <div class="list">
+      <a class="item card padding-left-7" data-ng-repeat="booked in bookmarks" href="#/jobDetails/{{r.bookedd}}">
+        <div class="item-divider">
+          {{booked.title}}
+        </div>
+        <div class="item-text-wrap">
+          {{ booked.field}}
+        </div>
+        <div class="item-divider">
+          {{ booked.location}}
+        </div>
+      </a>
+    </div>
+  </ion-content>
 </ion-view>

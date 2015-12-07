@@ -7,19 +7,19 @@
         <!--  <h1 class="title">Search Results</h1>-->
       </ion-header-bar>
       <ion-content>
-      <div class="list">
-        <a class="item card" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
-          <div class="item-divider">
-            {{r.title}}
-          </div>
-          <div class="item-text-wrap">
-            {{ r.field}}
-          </div>
-          <div class="item-divider">
-            {{ r.location}}
-          </div>
-        </a>
-      </div>
+        <div class="list">
+          <a class="item card padding-left-7" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
+            <div class="item-divider">
+              {{r.title}}
+            </div>
+            <div class="item-text-wrap">
+              {{ r.field}}
+            </div>
+            <div class="item-divider">
+              {{ r.location}}
+            </div>
+          </a>
+        </div>
       </ion-content>
     </ion-side-menu-content>
 
@@ -31,7 +31,98 @@
         <a ng-click="filterBy('all')" class="item" menu-close>Reset Filter</a>
       </header>
 
-      <!-- predefined Search -->
+
+      <div class="list">
+        <div class="item item-divider">
+          Keywords
+        </div>
+        <label class="item item-input">
+          <input type="text" placeholder="some example keywords" ng-model="filterKeywords">
+        </label>
+        <br>
+
+        <div class="item item-divider">
+          Location
+        </div>
+        <label class="item item-input">
+          <input type="text" placeholder="my hometown" ng-model="filterLocation">
+        </label>
+        <br>
+        <div class="item item-divider padding-top">
+          Field of work
+        </div>
+        <label class="item item-input item-select padding-top">
+          <div class="input-label"></div>
+          <select>
+            <option selected></option>
+            <option>Information Technology</option>
+            <option>Project Management</option>
+            <option>Human Ressources</option>
+          </select>
+        </label>
+        <br>
+        <div class="item item-divider padding-top">
+          Job Type
+        </div>
+        <label class="item item-input item-select padding-top">
+          <div class="input-label"></div>
+          <select>
+            <option selected></option>
+            <option>Full time</option>
+            <option>Part time</option>
+            <option>Working student</option>
+            <option>Hiwi</option>
+            <option>Master thesis</option>
+            <option>Bachelor thesis</option>
+            <option>Internship</option>
+            <option>Contract</option>
+          </select>
+        </label>
+        <br>
+
+        <div class="item item-divider padding-top">
+          minimum Education Level
+        </div>
+        <label class="item item-input item-select padding-top">
+          <div class="input-label"></div>
+          <select>
+            <option selected></option>
+            <option>Diplom</option>
+            <option>Bachelor</option>
+            <option>Bachelor of science</option>
+            <option>Bachelor of art</option>
+            <option>Bachelor of engineering</option>
+            <option>Master</option>
+            <option>Master of science</option>
+            <option>Master of art</option>
+            <option>Master of engineering</option>
+            <option>PhD</option>
+          </select>
+        </label>
+        <br>
+
+        <div class="item item-divider padding-top">
+          minimum Experience: {{filterExperience}} years
+        </div>
+        <div class="item range range-positive">
+          <i class="icon ion-ios-calendar-outline"></i>
+          <input type="range" min="0" max="15" value="0" name="experience" ng-model="filterExperience">
+          <i class="icon ion-ios-calendar"></i>
+        </div>
+        <br>
+
+        <div class="item item-divider padding-top">
+          minimum Salary: {{filterSalary}} Euro
+        </div>
+        <div class="item range range-positive">
+          <i class="icon ion-social-euro-outline"></i>
+          <input type="range" name="volume" min="0" max="200000" value="0" ng-model="filterSalary">
+          <i class="icon ion-social-euro"></i>
+        </div>
+
+      </div>
+
+      <!-- predefined Search
       <h4>Search title field</h4>
       <ul class="list">
         <a ng-repeat="filterWord in filters" ng-click="filterBy('{{filterWord}}')" class="item" menu-close>{{filterWord}}</a>
@@ -39,14 +130,14 @@
 
       <br>
 
-      <!-- free search -->
+      <!-- free search
       <h4>Search description field</h4>
       <label style="" name="filterForDescription" class="item item-input">
         <input placeholder="Search description" type="text" ng-model="filterForDescription">
       </label>
       <a ng-click="filterSearchDescription(filterForDescription)" class="item" menu-close>Search description</a>
 
-
+-->
 
     </ion-side-menu>
 

@@ -4,14 +4,11 @@
 
 angular.module('Workforce.services')
 
-.factory('ApplicationService', function($http) {
+.factory('ApplicationService', function($http, JobService) {
 
   return{
-
-
     getApplications : function(Username){
-
-      console.log(Username);
+      return JobService.search("", "Stuttgart");
     }
   }
 
