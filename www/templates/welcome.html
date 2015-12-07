@@ -1,10 +1,9 @@
-<ion-view style="" title="Welcome" ng-app="Workforce" ng-controller="welcomeCtrl">
-    <ion-content class="has-header" padding="true">
+<ion-view style="" title="Welcome" ng-app="Workforce" ng-controller="welcomeCtrl"  cache-view="false">
+    <ion-content class="has-header" padding="true" >
         <img style="width: 100%; height: auto;" src="img/Logo_with_Text.png" height="auto" width="100%">
-        <form style="" class="list">
-          <div  ng-if="setUsername"> Welcome,{{UserName}}
-            <button class=""  ng-controller="loginCtrl" ng-click="logout()">LOGOUT</button>
-          </div>
+        <form style="" class="list" >
+          <div  ng-if="username != ''"> Welcome,{{username}}
+            </div>
 
             <div style="">
                 <br>
@@ -28,9 +27,11 @@
         <div style="">
             <br>
         </div>
-          <a  ng-if="setUsername" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/applications">My Application</a>
+          <a  ng-if="username != ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/applications">My Application</a>
 
-        <div style="">
+          <a  ng-if="username != ''" ng-controller="loginCtrl" ng-click="logout()" style="" class="button button-stable button-block  icon-left ion-android-person">Log out</a>
+
+          <div style="">
             <br>
         </div>
         <div style="">
@@ -39,8 +40,8 @@
 
 
         <div style="" class="button-bar">
-            <a  ng-if="!setUsername" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/login">Log In</a>
-            <a  ng-if="!setUsername" style="" class="button button-stable button-block  icon-left ion-ios-body" href="#/register">Register</a>
+            <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/login">Log In</a>
+            <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-ios-body" href="#/register">Register</a>
 
 
         </div>

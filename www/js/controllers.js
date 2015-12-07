@@ -39,17 +39,12 @@ angular.module('Workforce.controllers', [])
 
   })
 
-  .controller('welcomeCtrl', function ($scope , $rootScope) {
+  .controller('welcomeCtrl', function ($scope , $rootScope, LoginService) {
     $scope.keywords= "";
     $scope.location= "";
    $rootScope.UserName=null;
     $scope.password="";
-    
-
-
-
-
-
+    $scope.username = LoginService.getUser();
 })
 
   .controller('registerCtrl', function ($scope,RegisterService) {
