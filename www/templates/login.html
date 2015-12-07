@@ -1,19 +1,27 @@
-<ion-view style="" title="Login at WorkForce">
-    <ion-content class="has-header" padding="true">
-        <form style="" class="list">
-            <label style="" class="item item-input">
-                <span class="input-label">Username</span>
-                <input placeholder="Username" type="text">
-            </label>
-            <label style="" class="item item-input">
-                <span class="input-label">Password</span>
-                <input placeholder="Password" type="password">
-            </label>
-        </form>
-        <a style="" class="button  button-block  icon-left ion-android-person" href="#/startup_registered_student">Log In</a>
-        <div style="">
-            <p>No Account yet? Register within 2 minutes</p>
-        </div>
-        <a style="" class="button  button-block  icon-left ion-ios-body" href="#/register">Register</a>
-    </ion-content>
+<ion-view style="" title="Login at WorkForce"  ng-app="Workforce"  ng-controller="loginCtrl" >
+  <ion-content class="has-header" padding="true">
+    <form class="form-loginForm" style=""  name="form" role="form">
+
+      <label style="" class="item item-input">
+        <span class="input-label">Email</span>
+        <input placeholder="Email" name="Email" type="email" ng-model="data.Email" required>
+
+    </label>
+      <span class="help-block" ng-show="form.Email.$error.email">Please enter the valid email id </span>
+      <span class="help-block" ng-show="form.Email.$error.required">Please enter your email </span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">password</span>
+        <input placeholder="password" type="password" ng-model="data.password">
+      </label>
+
+      <button class="button  button-block  icon-left ion-android-person" ng-disabled="!form.$valid" ng-click="login(data.Email,data.password)">LOGIN</button>
+
+    </form>
+
+    <div style="">
+      <p>No Account yet? Register within 2 minutes</p>
+    </div>
+    <a style="" class="button  button-block  icon-left ion-ios-body" href="#/register">Register</a>
+  </ion-content>
 </ion-view>

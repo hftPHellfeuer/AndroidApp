@@ -7,6 +7,7 @@ angular.module('Workforce.services', [])
 
   // Some fake testing data
   var dataCache = [];
+
   var allJobs = [{
     id: 0,
     title: 'Java',

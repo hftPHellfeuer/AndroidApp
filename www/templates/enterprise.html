@@ -1,0 +1,88 @@
+<ion-view style="" title="Enterprise"  ng-app="Workforce"  ng-controller="registerCtrl" >
+  <ion-content class="has-header" padding="true">
+    <form class="form-enterpriseForm" style=""  name="form" role="form" ng-submit="enterprise_register()">
+
+      <label style="" class="item item-input">
+        <span class="input-label">Company Name*</span>
+        <input placeholder="CompanyName"  name="CompanyName" type="text"  ng-model="entprisevalue.CompanyName" required >
+      </label>
+      <span class="help-block" ng-show="form.CompanyName.$error.required"></span>
+
+
+      <label style="" class="item item-input">
+        <span class="input-label">Industry Type*</span>
+        <input placeholder="IndustryType"  type="text" name="IndustryType" ng-model="entprisevalue.IndustryType" required >
+      </label>
+      <span class="help-block" ng-show="form.IndustryType.$error.required"></span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">Contact Person*</span>
+        <input placeholder="ContactPerson"  type="text" name="ContactPerson" ng-model="entprisevalue.ContactPerson"  required >
+      </label>
+      <span class="help-block" ng-show="form.ContactPerson.$error.required"></span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">Email*</span>
+        <input placeholder="Email"  type="email" name="Email" ng-model="entprisevalue.Email" required   >
+      </label>
+      <span class="help-block" ng-show="form.Email.$error.email">Please enter the valid email id </span>
+      <span class="help-block" ng-show="form.Email.$error.required"> </span>
+
+
+      <label style="" class="item item-input">
+        <span class="input-label">Password*</span>
+        <input placeholder="password"  type="password" name="password" ng-model="entprisevalue.password" required  >
+      </label>
+      <span class="help-block" ng-show="form.password.$error.required"> </span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">Confirm Password*</span>
+        <input placeholder="confirm_password"  type="password" name="confirm_password" ng-model="entprisevalue.confirm_password" required  >
+      </label>
+
+      <span class="help-block" ng-show="form.confirm_password.$error.required"> </span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">street*</span>
+        <input placeholder="street"  type="text"  name="street" ng-model="entprisevalue.street" required >
+      </label>
+
+      <span class="help-block" ng-show="form.street.$error.required"> </span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">City*</span>
+        <input placeholder="City"  type="text"  name="City" ng-model="entprisevalue.City" required >
+      </label>
+
+      <span class="help-block" ng-show="form.City.$error.required"> </span>
+
+      <label style="" class="item item-input">
+        <span class="input-label">ZipCode*</span>
+        <input placeholder="ZipCode"  type="number" name="ZipCode" ng-model="entprisevalue.ZipCode" required  >
+      </label>
+      <span class="help-block" ng-show="form.ZipCode.$error.required"> </span>
+
+
+
+      <label style="" class="item item-input">
+        <span class="input-label">Region</span>
+        <input placeholder="Region"  type="text" name="Region" ng-model="entprisevalue.Region" >
+      </label>
+
+
+
+
+      <label style="" class="item item-input">
+        <span class="input-label">Country*</span>
+        <input placeholder="Country"  type="text" name="Country" ng-model="entprisevalue.Country" required   >
+      </label>
+      <span class="help-block" ng-show="form.Country.$error.required"> </span>
+
+      <button class="button  button-block  icon-left ion-android-person" type="submit" ng-disabled="!form.$valid">Register </button>
+
+
+
+
+    </form>
+    </ion-content>
+  </ion-view>

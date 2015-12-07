@@ -23,6 +23,24 @@ angular.module('Workforce.routes', [])
         controller: 'registerCtrl'
       })
 
+      .state('register.student', {
+        url: '/student',
+        views: {
+          'student-tab':{templateUrl: 'templates/student.html',
+            controller: 'registerCtrl'}
+          }
+
+      })
+
+      .state('register.enterprise', {
+        url: '/enterprise',
+        views: {
+          'enterprise-tab':{templateUrl: 'templates/enterprise.html',
+          controller: 'registerCtrl'}
+        }
+
+      })
+
       .state('welcome', {
         url: '/welcome',
         templateUrl: 'templates/welcome.html',
