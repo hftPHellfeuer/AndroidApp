@@ -67,14 +67,47 @@ angular.module('Workforce.controllers', [])
     }
   })
 
-  .controller('searchResultsCtrl', function ($scope, $stateParams,JobService) {
-    $scope.results = JobService.search($stateParams.keywords, $stateParams.location);
+  .controller('searchResultsCtrl', function ($scope, $stateParams,$ionicSideMenuDelegate, JobService) {
+    JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
+    {
+      $scope.results = result.data;
+      $scope.allResults = result.data;
+    });
 
+    $scope.filters = [
+      'Develop',
+      'Engi',
+      'Stuttgart'
+    ];
+
+    $scope.filterBy = function(filter){
+      if(filter === 'all'){
+        return $scope.results = $scope.allResults;
+      }
+      $scope.results = $scope.allResults.filter(function(job){return job.title.indexOf(filter) > -1;})
+    }
+
+    $scope.filterSearchDescription = function(search){
+      if(search === ''){
+       // return $scope.results = $scope;
+      } else {
+        $scope.results = $scope.allResults.filter(function (job) {
+          return job.description.indexOf(search) > -1;
+        })
+      }
+    }
+
+
+    $scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
   })
 
   .controller('jobDetailsCtrl', function ($scope, $stateParams, JobService) {
     $scope.job = JobService.getDetails($stateParams.jobId);
+    $scope.$apply();
 //    alert(JSON.stringify($scope.job))
+
   })
 
   .controller('applicationsCtrl', function ($scope,$rootScope,ApplicationService) {
@@ -85,7 +118,8 @@ angular.module('Workforce.controllers', [])
 
   .controller('bookmarksCtrl', function ($scope) {
 
-  });
+  })
 
+.controller('filterCtrl', function ($scope) {
 
-
+})

@@ -2,61 +2,54 @@
  * Created by Patrick on 23.11.2015.
  */
 angular.module('Workforce.services', [])
-.factory('JobService', function($http) {
+.factory('JobService' ,function($http) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
+  var testJobs = [{"id":2,"title":"Java","description":"Support of application operation, the ACTS platform and thus theÂ smooth settlement of payment transactions the Allianz Group. Participation in (international) projects for connecting additional units Alliance.","field":"Project_Management","location":"Stuttgart","minEducationLevel":"Bachelor of Science","minYearsOfExperience":1,"minSalary":44000,"maxSalary":46500,"startDate":"2016-01-02","applicationDeadline":"2016-11-01","timesOfVisits":3,"keySkills":["Profound knowledge in the development of mobile iOS (objective-c / Swift) and Android (Java) applications. Experience in agile development environment, conceptual skills and experience in SQL environment are now complete your profile"]},{"id":1,"title":"Mobile App Developer! Mobile Software-Developer (m/f)","description":"Responsible for mobile applications (Objective-C / Android) the company: design, development and optimization by agile principle. Realization of the frontend components with HTML / CSS / XML and SQL interfaces.","field":"Project_Management","location":"Stuttgart","minEducationLevel":"Bachelor of Science","minYearsOfExperience":3,"minSalary":47000,"maxSalary":48500,"startDate":"2016-01-15","applicationDeadline":"2015-12-13","timesOfVisits":23,"keySkills":["Basic knowledge of client / server development (eg Java)","Good communication skills in English both spoken and written","Joy of international cooperation"]}]
   var dataCache = [];
-
-  var allJobs = [{
-    id: 0,
-    title: 'Java',
-    jobType: 'internship',
-    location: 'Stuttgart'
-  }, {
-    id: 1,
-    title: 'Java',
-    jobType: 'bachelor Thesis',
-    location: 'Hamburg'
-  }, {
-    id: 2,
-    title: 'Matlab',
-    jobType: 'Master Thesis',
-    location: 'Stuttgart'
-  }, {
-    id: 3,
-    title: 'Matlab',
-    jobType: 'internship',
-    location: 'Dresden'
-  }];
+  var lastSearch = "";
+  var dataPromise = null;
 
   return {
-    search: function(keywords, location) {
-      if (dataCache == [])
-      {
+
+    search: function (keywords, location) {
+
+      if (dataPromise == null || lastSearch != keywords + location ) {
+        lastSearch = keywords + location;
         var locationEncoded = encodeURIComponent(location);
         var keywordsEncoded = encodeURIComponent(keywords);
-        $http.get("http://jobcenter-hftspws10.rhcloud.com/rest/jobs/" + keywordsEncoded + "/" + locationEncoded)
-          .success(function (result) {
-            dataCache = result;
-          })
-      }
-      matchingOffers = [];
-      angular.forEach(allJobs, function(value, key) {
-        if ((value.location.indexOf(location) > -1) ||
-        ((value.title.indexOf(keywords) > -1)||
-          (value.jobType.indexOf(keywords) > -1)))
-        {
-          matchingOffers.push(value);
+        var url = "";
+        if (keywords == "" && location == "") {
+          url = "http://jobcenter-hftspws10.rhcloud.com/rest/jobs/";
         }
-      })
+        else if (keywords == "") {
+          url = "http://jobcenter-hftspws10.rhcloud.com/rest/jobs/location/" + locationEncoded;
+        }
+        else if (location == "") {
+          url = "http://jobcenter-hftspws10.rhcloud.com/rest/jobs/keyword" + keywordsEncoded;
+        }
+        else {
+          url = "http://jobcenter-hftspws10.rhcloud.com/rest/jobs/" + keywordsEncoded + "/" + locationEncoded;
+        }
 
-      return matchingOffers;
+        dataPromise = $http({method:'GET', url: url})
+         .success(function (result) {
+         dataCache = result;
+         return result;
+         })
+         .error(function () {
+         return [];
+         });
+
+      }
+      return dataPromise;
     },
+
 
     getDetails: function(jobId) {
       var returnValue =[]
-        angular.forEach(allJobs, function(value, key){
+        angular.forEach(dataCache, function(value, key){
           if(value.id == jobId)
           {
             returnValue = value;

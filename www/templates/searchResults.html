@@ -1,19 +1,54 @@
-<ion-view style="" title="Search Results">
-  <ion-content class="has-header" padding="true">
-    <button style="" class="button button-stable button-block  icon ion-funnel">Filter</button>
+<div>
+  <ion-side-menus class="has-header">
+    <!--Main content -->
+    <ion-side-menu-content>
+      <ion-header-bar>
+        <button class="button button-icon ion-funnel title" menu-toggle="left">Filter</button>
+        <!--  <h1 class="title">Search Results</h1>-->
+      </ion-header-bar>
+      <ion-content>
+      <div class="list">
+        <a class="item card" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
+          <div class="item-divider">
+            {{r.title}}
+          </div>
+          <div class="item-text-wrap">
+            {{ r.field}}
+          </div>
+          <div class="item-divider">
+            {{ r.location}}
+          </div>
+        </a>
+      </div>
+      </ion-content>
+    </ion-side-menu-content>
 
-    <div class="list">
-      <a class="item card" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
-        <div class="item-divider">
-          {{r.title}}
-        </div>
-        <div class="item-text-wrap">
-          {{ r.jobType}}
-        </div>
-        <div class="item-divider">
-          {{ r.location}}
-        </div>
-      </a >
-    </div>
-  </ion-content>
-</ion-view>
+    <!-- Left Side Menu -->
+    <ion-side-menu side="left" class="has-header">
+
+      <!-- Reset -->
+      <header>
+        <a ng-click="filterBy('all')" class="item" menu-close>Reset Filter</a>
+      </header>
+
+      <!-- predefined Search -->
+      <h4>Search title field</h4>
+      <ul class="list">
+        <a ng-repeat="filterWord in filters" ng-click="filterBy('{{filterWord}}')" class="item" menu-close>{{filterWord}}</a>
+      </ul>
+
+      <br>
+
+      <!-- free search -->
+      <h4>Search description field</h4>
+      <label style="" name="filterForDescription" class="item item-input">
+        <input placeholder="Search description" type="text" ng-model="filterForDescription">
+      </label>
+      <a ng-click="filterSearchDescription(filterForDescription)" class="item" menu-close>Search description</a>
+
+
+
+    </ion-side-menu>
+
+  </ion-side-menus>
+</div>
