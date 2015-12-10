@@ -71,7 +71,7 @@ angular.module('Workforce.controllers', [])
 
     JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
     {
-      $scope.results = result.data;
+      $scope.jobOffers = result.data;
       $scope.allResults = result.data;
     });
 
@@ -83,16 +83,16 @@ angular.module('Workforce.controllers', [])
 
     $scope.filterBy = function(filter){
       if(filter === 'all'){
-        return $scope.results = $scope.allResults;
+        return $scope.jobOffers = $scope.allResults;
       }
-      $scope.results = $scope.allResults.filter(function(job){return job.title.indexOf(filter) > -1;})
+      $scope.jobOffers = $scope.allResults.filter(function(job){return job.title.indexOf(filter) > -1;})
     }
 
     $scope.filterSearchDescription = function(search){
       if(search === ''){
        // return $scope.results = $scope;
       } else {
-        $scope.results = $scope.allResults.filter(function (job) {
+        $scope.jobOffers = $scope.allResults.filter(function (job) {
           return job.description.indexOf(search) > -1;
         })
       }

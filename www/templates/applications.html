@@ -4,18 +4,9 @@
   </ion-header-bar>
     <ion-content padding="true" title="My Applications">
           <div class="list">
-            <a class="item card item-icon-left" data-ng-repeat="r in applications" href="#/jobDetails/{{r.id}}">
+            <a class="item card item-icon-left" data-ng-repeat="offer in applications" href="#/jobDetails/{{offer.id}}">
               <i class="icon ion-help"></i>
-
-              <div class="item-divider">
-                {{r.title}}
-              </div>
-              <div class="item-text-wrap">
-                {{ r.field}}
-              </div>
-              <div class="item-divider">
-                {{ r.location}}
-              </div>
+              <div ng-include="'templates/common/jobOffer.html'"></div>
             </a>
           </div>
         </ion-content>

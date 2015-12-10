@@ -4,16 +4,8 @@
   </ion-header-bar>
   <ion-content padding="true">
     <div class="list">
-      <a class="item card padding-left-7" data-ng-repeat="booked in bookmarks" href="#/jobDetails/{{r.bookedd}}">
-        <div class="item-divider">
-          {{booked.title}}
-        </div>
-          <div class="item-text-wrap">
-            {{ booked.field}}
-          </div>
-          <div class="item-divider">
-            {{ booked.location}}
-        </div>
+      <a class="item card padding-left-7" data-ng-repeat="offer in bookmarks" href="#/jobDetails/{{offer.bookedd}}">
+          <div ng-include="'templates/common/jobOffer.html'"></div>
       </a>
     </div>
   </ion-content>

@@ -3,22 +3,11 @@
     <!--Main content -->
     <ion-side-menu-content>
       <ion-header-bar>
-        <button class="button button-icon ion-funnel title" menu-toggle="left">Filter</button>
-        <!--  <h1 class="title">Search Results</h1>-->
+          <button class="button icon ion-funnel" menu-toggle="left">Filter</button>
+          <h1 class="title font-size-24 grey-text">Search results</h1>
       </ion-header-bar>
       <ion-content>
-        <div class="list">
-          <a class="item card padding-left-7" data-ng-repeat="r in results" href="#/jobDetails/{{r.id}}">
-            <div class="item-divider">
-              {{r.title}}
-            </div>
-            <div class="item-text-wrap">
-              {{ r.field}}
-            </div>
-            <div class="item-divider">
-              {{ r.location}}
-            </div>
-          </a>
+        <div ng-include="'templates/common/jobOfferList.html'">
         </div>
       </ion-content>
     </ion-side-menu-content>
