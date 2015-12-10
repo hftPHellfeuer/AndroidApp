@@ -66,6 +66,10 @@ angular.module('Workforce.controllers', [])
     $scope.filter = {};
     $scope.filter.salary = 0;
     $scope.filter.experience = 0;
+    $scope.filter.field = "";
+    $scope.filter.type = "";
+    $scope.filter.education = "";
+
     $scope.filter.keywords = $stateParams.keywords;
     $scope.filter.location = $stateParams.location;
     $scope.dragContent = false; // enables scrolling on left side
@@ -78,10 +82,27 @@ angular.module('Workforce.controllers', [])
 
 
     $scope.filterBy = function(filter){
-      if(filter === 'all'){
-        return $scope.jobOffers = $scope.allResults;
+      var filtered = $scope.allResults;
+      if (filter.field != ""){
+        filtered =filtered.filter(function(job){return job.field.replace("_"," ") == filter.field});
       }
-      $scope.jobOffers = $scope.allResults.filter(function(job){return job.title.indexOf(filter) > -1;})
+      if (filter.type != ""){
+        filtered= filtered.filter(function(job){return job.type.replace("_"," ")== filter.type});
+      }
+      if (filter.education != ""){
+        filtered=filtered.filter(function(job){return job.minEducationLevel.replace("_"," ") == filter.education});
+      }
+      if (filter.salary != 0){
+        filtered=filtered.filter(function(job){return job.minSalary>= filter.salary;});
+      }
+      if (filter.experience != 0){
+        filtered=filtered.filter(function(job){return job.minYearsOfExperience >= filter.experience;});
+      }
+      return $scope.jobOffers = filtered;
+    }
+
+    $scope.resetFilter = function(){
+        return $scope.jobOffers = $scope.allResults;
     }
 
     $scope.filterSearchDescription = function(search){
