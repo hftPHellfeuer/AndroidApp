@@ -63,11 +63,12 @@ angular.module('Workforce.controllers', [])
   })
 
   .controller('searchResultsCtrl', function ($scope, $stateParams,$ionicSideMenuDelegate, JobService) {
-    $scope.filterSalary = 0;
-    $scope.filterExperience = 0;
-    $scope.filterKeywords = $stateParams.keywords;
-    $scope.filterLocation = $stateParams.location;
-    $scope.dragContent = false;
+    $scope.filter = {};
+    $scope.filter.salary = 0;
+    $scope.filter.experience = 0;
+    $scope.filter.keywords = $stateParams.keywords;
+    $scope.filter.location = $stateParams.location;
+    $scope.dragContent = false; // enables scrolling on left side
 
     JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
     {
@@ -75,11 +76,6 @@ angular.module('Workforce.controllers', [])
       $scope.allResults = result.data;
     });
 
-    $scope.filters = [
-      'Develop',
-      'Engi',
-      'Stuttgart'
-    ];
 
     $scope.filterBy = function(filter){
       if(filter === 'all'){
