@@ -67,6 +67,7 @@ angular.module('Workforce.controllers', [])
     $scope.filterExperience = 0;
     $scope.filterKeywords = $stateParams.keywords;
     $scope.filterLocation = $stateParams.location;
+    $scope.dragContent = false;
 
     JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
     {
