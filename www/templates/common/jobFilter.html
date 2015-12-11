@@ -1,12 +1,11 @@
-<ion-content>
-  <!-- Reset -->
-  <header>
-    <a ng-click="resetFilter()" class="item" menu-close>Reset Filter</a>
-    <a ng-click="filterBy(filter)" class="item" menu-close>Apply Filter</a>
-  </header>
-
+<ion-content ng-controller="filterCtrl">
 
   <div class="list">
+
+
+
+
+
     <div class="item item-divider">
       Keywords
     </div>
@@ -22,6 +21,10 @@
       <input type="text" placeholder="my hometown" ng-model="filter.location">
     </label>
     <br>
+    <a ng-click="resetFilter()" class="item icon-left ion-trash-a button blue-button button-block " menu-close>Reset Filter</a>
+    <a ng-click="applyFilter(filter)" class="ion-checkmark-round item icon-left button blue-button button-block " menu-close>Apply Filter</a>
+    <br>
+
     <div class="item item-divider padding-top">
       Field of work
     </div>

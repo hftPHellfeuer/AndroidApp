@@ -18,3 +18,9 @@
 .margin-5{
   margin: 5px !important;
 }
+
+.blue-button{
+  border-color: #FFFFFF;
+  background-color: #209edb;
+  color: #FFFFFF !important;
+}

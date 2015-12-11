@@ -11,7 +11,6 @@
         <i class="icon ion-search placeholder-icon"></i>
         <input placeholder="Search for Keywords" type="text" ng-model="keywords">
       </label>
-
         <h4 class=" grey-text text-center">in</h4>
 
       <label style="" name="Location" class="padding-top padding-bottom item item-input">
@@ -19,8 +18,8 @@
         <input placeholder="Location" type="text" ng-model="location">
       </label>
       <br>
-      <a style="" class=" padding-top padding-bottom button button-stable button-block  icon-left ion-search"
-         href="#/searchResults/{{keywords}}/{{location}}">Search</a>
+      <button style="submit" class=" padding-top padding-bottom button button-stable button-block  icon-left ion-search"
+         ng-click="search()">Search</button>
     </form>
 
 

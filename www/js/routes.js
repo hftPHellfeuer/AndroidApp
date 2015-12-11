@@ -48,7 +48,7 @@ angular.module('Workforce.routes', [])
       })
 
       .state('searchResults', {
-        url: '/searchResults/{keywords}/{location}',
+        url: '/searchResults',
         templateUrl: 'templates/searchResults.html',
         controller: 'searchResultsCtrl'
       })

@@ -34,12 +34,17 @@ angular.module('Workforce.controllers', [])
 
   })
 
-  .controller('welcomeCtrl', function ($scope , $rootScope, LoginService) {
-    $scope.keywords= "";
-    $scope.location= "";
-   $rootScope.UserName=null;
-    $scope.password="";
+  .controller('welcomeCtrl', function ($scope ,$state, LoginService, JobService) {
+    $scope.keywords= JobService.getFilterKeywords();
+    $scope.location= JobService.getFilterLocation();
     $scope.username = LoginService.getUser();
+
+    $scope.search = function(){
+      JobService.setFilterKeywords(this.keywords);
+      JobService.setFilterLocation(this.location);
+      JobService.update();
+      $state.go('searchResults',{},{reload:true});
+    }
 })
 
   .controller('registerCtrl', function ($scope,RegisterService) {
@@ -62,59 +67,52 @@ angular.module('Workforce.controllers', [])
     }
   })
 
-  .controller('searchResultsCtrl', function ($scope, $stateParams,$ionicSideMenuDelegate, JobService) {
+  .controller('filterCtrl', function ($scope, JobService){
     $scope.filter = {};
-    $scope.filter.salary = 0;
-    $scope.filter.experience = 0;
-    $scope.filter.field = "";
-    $scope.filter.type = "";
-    $scope.filter.education = "";
+    $scope.filter.salary = JobService.getFilterSalary();
+    $scope.filter.experience = JobService.getFilterExperience();
+    $scope.filter.field =JobService.getFilterField();
+    $scope.filter.type = JobService.getFilterType();
+    $scope.filter.education = JobService.getFilterEducation();
+    $scope.filter.keywords = JobService.getFilterKeywords();
+    $scope.filter.location = JobService.getFilterLocation();
 
-    $scope.filter.keywords = $stateParams.keywords;
-    $scope.filter.location = $stateParams.location;
-    $scope.dragContent = false; // enables scrolling on left side
-
-    JobService.search($stateParams.keywords, $stateParams.location).then(function (result)
-    {
-      $scope.jobOffers = result.data;
-      $scope.allResults = result.data;
-    });
-
-
-    $scope.filterBy = function(filter){
-      var filtered = $scope.allResults;
-      if (filter.field != ""){
-        filtered =filtered.filter(function(job){return job.field.replace("_"," ") == filter.field});
-      }
-      if (filter.type != ""){
-        filtered= filtered.filter(function(job){return job.type.replace("_"," ")== filter.type});
-      }
-      if (filter.education != ""){
-        filtered=filtered.filter(function(job){return job.minEducationLevel.replace("_"," ") == filter.education});
-      }
-      if (filter.salary != 0){
-        filtered=filtered.filter(function(job){return job.minSalary>= filter.salary;});
-      }
-      if (filter.experience != 0){
-        filtered=filtered.filter(function(job){return job.minYearsOfExperience >= filter.experience;});
-      }
-      return $scope.jobOffers = filtered;
+    $scope.applyFilter = function(filter){
+      JobService.setFilterEducation(filter.education);
+      JobService.setFilterSalary(filter.salary);
+      JobService.setFilterExperience(filter.experience);
+      JobService.setFilterField(filter.field);
+      JobService.setFilterType(filter.type);
+      JobService.setFilterKeywords(filter.keywords);
+      JobService.setFilterLocation(filter.location);
+      JobService.update();
     }
 
     $scope.resetFilter = function(){
-        return $scope.jobOffers = $scope.allResults;
+      JobService.setFilterEducation("");
+      JobService.setFilterSalary(0);
+      JobService.setFilterExperience(0);
+      JobService.setFilterField("");
+      JobService.setFilterType("");
+      JobService.update();
     }
 
-    $scope.filterSearchDescription = function(search){
-      if(search === ''){
-       // return $scope.results = $scope;
-      } else {
-        $scope.jobOffers = $scope.allResults.filter(function (job) {
-          return job.description.indexOf(search) > -1;
-        })
-      }
-    }
+  })
 
+  .controller('searchResultsCtrl', function ($scope, $ionicSideMenuDelegate, JobService) {
+
+    $scope.dragContent = false; // enables scrolling on left side
+    $scope.JobOffers = JobService.getJobOffers();
+    $scope.isLoading = JobService.isLoading();
+
+
+    $scope.$on('jobListChanged', function() {
+      $scope.JobOffers = JobService.getJobOffers();
+    });
+
+    $scope.$on('loadingStateChanged', function() {
+      $scope.isLoading = JobService.isLoading();
+    });
 
     $scope.toggleLeft = function() {
       $ionicSideMenuDelegate.toggleLeft();
@@ -122,9 +120,7 @@ angular.module('Workforce.controllers', [])
   })
 
   .controller('jobDetailsCtrl', function ($scope, $stateParams, JobService) {
-    $scope.job = JobService.getDetails($stateParams.jobId);
-    $scope.$apply();
-
+    $scope.job = JobService.getJobDetails($stateParams.jobId);
   })
 
   .controller('applicationsCtrl', function ($scope,LoginService,ApplicationService) {
