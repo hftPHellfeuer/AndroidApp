@@ -67,15 +67,43 @@ angular.module('Workforce.controllers', [])
     }
   })
 
-  .controller('filterCtrl', function ($scope, JobService){
-    $scope.filter = {};
-    $scope.filter.salary = JobService.getFilterSalary();
-    $scope.filter.experience = JobService.getFilterExperience();
-    $scope.filter.field =JobService.getFilterField();
-    $scope.filter.type = JobService.getFilterType();
-    $scope.filter.education = JobService.getFilterEducation();
-    $scope.filter.keywords = JobService.getFilterKeywords();
-    $scope.filter.location = JobService.getFilterLocation();
+  .controller('filterCtrl', function ($scope, $ionicPopover, JobService){
+    initFilter();
+
+    $ionicPopover.fromTemplateUrl('popover-field.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popoverField = popover;
+    });
+    $ionicPopover.fromTemplateUrl('popover-type.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popoverType = popover;
+    });
+    $ionicPopover.fromTemplateUrl('popover-education.html', {
+      scope: $scope
+    }).then(function(popover) {
+      $scope.popoverEducation = popover;
+    });
+
+    $scope.openPopoverField = function($event) {
+      $scope.popoverField.show($event);
+    };
+    $scope.closePopoverField = function() {
+      $scope.popoverField.hide();
+    };
+    $scope.openPopoverType = function($event) {
+      $scope.popoverType.show($event);
+    };
+    $scope.closePopoverType = function() {
+      $scope.popoverType.hide();
+    };
+    $scope.openPopoverEducation = function($event) {
+      $scope.popoverEducation.show($event);
+    };
+    $scope.closePopoverEducation = function() {
+      $scope.popoverEducation.hide();
+    };
 
     $scope.applyFilter = function(filter){
       JobService.setFilterEducation(filter.education);
@@ -95,6 +123,18 @@ angular.module('Workforce.controllers', [])
       JobService.setFilterField("");
       JobService.setFilterType("");
       JobService.update();
+      initFilter();
+    }
+
+    function initFilter(){
+      $scope.filter = {};
+      $scope.filter.salary = JobService.getFilterSalary();
+      $scope.filter.experience = JobService.getFilterExperience();
+      $scope.filter.field =JobService.getFilterField();
+      $scope.filter.type = JobService.getFilterType();
+      $scope.filter.education = JobService.getFilterEducation();
+      $scope.filter.keywords = JobService.getFilterKeywords();
+      $scope.filter.location = JobService.getFilterLocation();
     }
 
   })
