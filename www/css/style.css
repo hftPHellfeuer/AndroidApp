@@ -1,4 +1,47 @@
 /* Empty. Add your own CSS if you like */
 .bullletList {
-  list-style-type: disc; !important;
+  list-style-type: disc !important;
+}
+.grey-text{
+  color: #aaaaaa !important;
+}
+.padding-left-7{
+  padding: 7px !important;
+}
+.font-size-24{
+  font-size: 24px !important;
+}
+
+.red-text{
+  color: #e42112 !important;
+}
+.margin-5{
+  margin: 5px !important;
+}
+
+.grey-button{
+  border-color: #999;
+  background-color: #999;
+  color: #FFFFFF !important;
+}
+
+.my-popover{
+  height: 90%;
+  width: 90%;
+  top: 2% !important;
+  left: 5% !important;
+}
+.my-popover-radio{
+  height:60px;
+  border-bottom: 1px !important;
+}
+
+
+.my-popover-open-button{
+  margin-top: 0px !important;
+  text-align: left !important;
+}
+
+.grey-background{
+  background-color: #eee;
 }

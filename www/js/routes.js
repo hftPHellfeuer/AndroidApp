@@ -48,7 +48,7 @@ angular.module('Workforce.routes', [])
       })
 
       .state('searchResults', {
-        url: '/searchResults/{keywords}/{location}',
+        url: '/searchResults',
         templateUrl: 'templates/searchResults.html',
         controller: 'searchResultsCtrl'
       })
@@ -66,7 +66,7 @@ angular.module('Workforce.routes', [])
       })
 
       .state('bookmarks', {
-        url: 'bookmarks',
+        url: '/bookmarks',
         templateUrl: 'templates/bookmarks.html',
         controller: 'bookmarksCtrl'
       });

@@ -1,0 +1,182 @@
+<ion-content ng-controller="filterCtrl">
+
+  <div class="list">
+    <div class="item item-divider grey-background">
+      Keywords
+    </div>
+    <label class="item item-input">
+      <input type="text" placeholder="keywords" ng-model="filter.keywords">
+    </label>
+    <br>
+
+    <div class="item item-divider grey-background">
+      Location
+    </div>
+    <label class="item item-input">
+      <input type="text" placeholder="location" ng-model="filter.location">
+    </label>
+    <br>
+    <a ng-click="resetFilter()" class="item button grey-button button-block " menu-close>
+      <div class="item-icon-left">
+        <i class="icon ion-trash-a"></i>
+      </div>
+      Reset Filter
+      <div class="item-icon-right">
+        <i class="icon ion-trash-a"></i>
+      </div>
+    </a>
+    <a ng-click="applyFilter(filter)" class=" item button grey-button button-block " menu-close>
+      <div class="item-icon-left">
+        <i class="icon ion-checkmark-round"></i>
+      </div>
+      Apply Filter
+      <div class="item-icon-right">
+        <i class="icon ion-checkmark-round"></i>
+      </div>
+    </a>
+    <br>
+
+    <div class="item item-divider padding-top grey-background">
+      Field of work
+    </div>
+    <a class="item button button-block my-popover-open-button text-left" ng-click="openPopoverField($event)">
+      <div ng-if="filter.field==''">All</div>
+      {{filter.field}}
+    </a>
+    <br>
+
+    <div class="item item-divider padding-top grey-background">
+      Job Type
+    </div>
+    <a class="item button button-block my-popover-open-button text-left" ng-click="openPopoverType($event)">
+      <div ng-if="filter.type==''">All</div>
+      {{filter.type}}
+    </a>
+    <br>
+
+    <div class="item item-divider padding-top grey-background">
+      minimum Education Level
+    </div>
+    <a class="item button button-block my-popover-open-button text-left" ng-click="openPopoverEducation($event)">
+      <div ng-if="filter.education==''">None</div>
+      {{filter.education}}
+    </a>
+    <br>
+
+  <!--
+    <div class="item item-divider padding-top grey-background">
+      Job Type
+    </div>
+    <label class="item item-input item-select padding-top">
+      <div class="input-label"></div>
+      <select ng-model="filter.type">
+        <option selected></option>
+        <option>Full time</option>
+        <option>Part time</option>
+        <option>Working student</option>
+        <option>Hiwi</option>
+        <option>Master thesis</option>
+        <option>Bachelor thesis</option>
+        <option>Internship</option>
+        <option>Contract</option>
+      </select>
+    </label>
+    <br>
+
+    <div class="item item-divider padding-top grey-background">
+      minimum Education Level
+    </div>
+    <label class="item item-input item-select padding-top ">
+      <div class="input-label"></div>
+      <select ng-model="filter.education">
+        <option selected></option>
+
+        <option>PhD</option>
+      </select>
+    </label>
+    <br>
+-->
+    <div class="item item-divider padding-top grey-background">
+      minimum Experience: {{filter.experience}} years
+    </div>
+    <div class="item range range-positive">
+      <i class="icon ion-ios-calendar-outline"></i>
+      <input type="range" min="0" max="15" value="0" name="experience" ng-model="filter.experience">
+      <i class="icon ion-ios-calendar"></i>
+    </div>
+    <br>
+
+    <div class="item item-divider padding-top grey-background">
+      minimum Salary: {{filter.salary}} Euro
+    </div>
+    <div class="item range range-positive">
+      <i class="icon ion-social-euro-outline"></i>
+      <input type="range" name="volume" min="0" max="200000" value="0" ng-model="filter.salary">
+      <i class="icon ion-social-euro"></i>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<!-- Popup for Job Field -->
+<script id="popover-field.html" type="text/ng-template">
+  <ion-popover-view class="my-popover">
+    <ion-header-bar>
+      <h1 class="title">Select a field of work</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="''">All</ion-radio>
+        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Information Technology'">Information Technology</ion-radio>
+        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Project Management'">Project Management</ion-radio>
+        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Human Ressources'">Human Ressources</ion-radio>
+      </ion-list>
+    </ion-content>
+  </ion-popover-view>
+</script>
+
+<!-- Popup for Job Type -->
+<script id="popover-type.html" type="text/ng-template">
+  <ion-popover-view class="my-popover">
+    <ion-header-bar>
+      <h1 class="title">Select a type of work</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="''">All</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Full time'">Full time</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Part time'">Part time</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Working student'">Working student</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Hiwi'">Hiwi</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Master thesis'">Master thesis</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Bachelor thesis'">Bachelor thesis</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Internship'">Internship</ion-radio>
+        <ion-radio ng-click="closePopoverType()" class="my-popover-radio" ng-model="filter.type" ng-value="'Contract'">Contract</ion-radio>
+      </ion-list>
+    </ion-content>
+  </ion-popover-view>
+</script>
+
+<!-- Popup for min Education -->
+<script id="popover-education.html" type="text/ng-template">
+  <ion-popover-view class="my-popover">
+    <ion-header-bar>
+      <h1 class="title">Select the min. education level</h1>
+    </ion-header-bar>
+    <ion-content>
+      <ion-list>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="''">None</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Diplom'">Diplom</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Bachelor'">Bachelor</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Bachelor of science'">Bachelor of art</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Bachelor of art'">Project Management</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Bachelor of engineering'">Bachelor of engineering</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Master'">Master</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Master of science'">Master of science</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Master of art'">Master of art</ion-radio>
+        <ion-radio ng-click="closePopoverEducation()" class="my-popover-radio" ng-model="filter.education" ng-value="'Master of engineering'">Master of engineering</ion-radio>
+      </ion-list>
+    </ion-content>
+  </ion-popover-view>
+</script>
