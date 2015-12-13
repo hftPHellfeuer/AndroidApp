@@ -1,4 +1,5 @@
-angular.module('Workforce.controllers', [])
+
+angular.module('Workforce.controllers', ['ngCordova'])
   .controller('loginCtrl', function ($scope,LoginService,$state,$rootScope){
 
     $scope.data={};
@@ -51,6 +52,10 @@ angular.module('Workforce.controllers', [])
 
     $scope.value={};
     $scope.entprisevalue={};
+    $scope.pwOK = false;
+    $scope.compare_student=false;
+    $scope.compare_enterprise=false
+
 
 
     $scope.Student_Register = function(){
@@ -64,6 +69,19 @@ angular.module('Workforce.controllers', [])
 
       console.log($scope.entprisevalue);
       RegisterService.register_Enterprise($scope.entprisevalue);
+    }
+
+    $scope.checkPassword = function()
+    {
+      if($scope.Student_Register){
+        $scope.compare_student =angular.equals($scope.value.password, $scope.value.confirm_password);
+
+      }
+      if($scope.enterprise_register) {
+        $scope.compare_enterprise =angular.equals($scope.entprisevalue.password, $scope.entprisevalue.confirm_password);
+      }
+
+
     }
   })
 
@@ -123,3 +141,30 @@ angular.module('Workforce.controllers', [])
 .controller('filterCtrl', function ($scope) {
 
 })
+
+.controller('ImageController', ['$scope','$rootScope','$cordovaCamera',function ($scope, $cordovaCamera,$cordovaImagePicker) {
+
+
+  $scope.ready = false;
+  $scope.images = [];
+
+$scope.ChoosePhoto = function()
+{
+
+  var options = {
+    maximumImagesCount: 10,
+    width: 800,
+    height: 800,
+    quality: 80
+  };
+
+  $cordovaImagePicker.getPictures(options) .then(function (results) {
+    for (var i = 0; i < results.length; i++) {
+      console.log('Image URI: ' + results[i]);
+    }
+  }, function(error) {
+    // error getting photos
+  });
+
+}
+}])

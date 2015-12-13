@@ -1,63 +1,68 @@
 <ion-view style="" title="Welcome" ng-app="Workforce" ng-controller="welcomeCtrl"  cache-view="false">
     <ion-content padding="true">
         <img style="width: 100%; height: auto;" src="img/Logo_with_Text.png" height="auto" width="100%">
+
         <form style="" class="list" >
           <div  ng-if="username != ''"> Welcome,{{username}}
-            </div>
+            <ion-content ng-controller="ImageController"  padding="true">
+              <!--  <button class="button button-full button-assertive" ng-click="ChoosePhoto()">Choose Photo</button>
+               <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center"> -->
+  </ion-content>
+  </div>
 
-            <div style="">
-                <br>
-            </div>
-            <div style="">
-                <center>Find your job
-                </center>
-            </div>
-            <label style="" name="Search" class="item item-input">
-                <input placeholder="Search for Keywords" type="text" ng-model="keywords">
-            </label>
-            <div style="">
-                <center>in</center>
-            </div>
-            <label style="" name="Location" class="item item-input">
-                <input placeholder="Location" type="text" ng-model="location">
-            </label>
-            <a style="" class="button button-stable button-block  icon-left ion-search" href="#/searchResults/{{keywords}}/{{location}}">Search</a>
+  <div style="">
+      <br>
+  </div>
+  <div style="">
+      <center>Find your job
+      </center>
+  </div>
+  <label style="" name="Search" class="item item-input">
+      <input placeholder="Search for Keywords" type="text" ng-model="keywords">
+  </label>
+  <div style="">
+      <center>in</center>
+  </div>
+  <label style="" name="Location" class="item item-input">
+      <input placeholder="Location" type="text" ng-model="location">
+  </label>
+  <a style="" class="button button-stable button-block  icon-left ion-search" href="#/searchResults/{{keywords}}/{{location}}">Search</a>
 
-        <a style="" class="button button-stable button-block  icon-left ion-funnel" href="#/searchResults/{{keywords}}/{{location}}">Filtered Search</a>
-        <div style="">
-            <br>
-        </div>
-          <a  ng-if="username != ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/applications">My Application</a>
+<a style="" class="button button-stable button-block  icon-left ion-funnel" href="#/searchResults/{{keywords}}/{{location}}">Filtered Search</a>
+<div style="">
+  <br>
+</div>
+<a  ng-if="username != ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/applications">My Application</a>
 
-          <a  ng-if="username != ''" ng-controller="loginCtrl" ng-click="logout()" style="" class="button button-stable button-block  icon-left ion-android-person">Log out</a>
+<a  ng-if="username != ''" ng-controller="loginCtrl" ng-click="logout()" style="" class="button button-stable button-block  icon-left ion-android-person">Log out</a>
 
-          <div style="">
-            <br>
-        </div>
-        <div style="">
-            <br>
-        </div>
-
-
-        <div style="" class="button-bar">
-            <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/login">Log In</a>
-            <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-ios-body" href="#/register">Register</a>
+<div style="">
+  <br>
+</div>
+<div style="">
+  <br>
+</div>
 
 
-        </div>
+<div style="" class="button-bar">
+  <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-android-person" href="#/login">Log In</a>
+  <a  ng-if="username == ''" style="" class="button button-stable button-block  icon-left ion-ios-body" href="#/register">Register</a>
 
-        </form>
 
- <!--
-      <div style="" class="list card">
-        <div class="item item-divider">Patricks Area</div>
-        <div class="item item-body">
-          <a style="" class="button button-stable button-block  icon-left ion-email" href="#/myApplications">My Applications</a>
-          <a style="" class="button button-stable button-block  icon-left ion-bookmark" href="#/myBookmarks">My Bookmarks</a>
-          <button style="" class="button button-stable button-block  icon-left ion-person">My Profile</button>
-          <button style="" class="button button-stable button-block  icon-left ion-power">Log out</button>
-        </div>
-      </div>
+</div>
+
+</form>
+
+<!--
+<div style="" class="list card">
+<div class="item item-divider">Patricks Area</div>
+<div class="item item-body">
+<a style="" class="button button-stable button-block  icon-left ion-email" href="#/myApplications">My Applications</a>
+<a style="" class="button button-stable button-block  icon-left ion-bookmark" href="#/myBookmarks">My Bookmarks</a>
+<button style="" class="button button-stable button-block  icon-left ion-person">My Profile</button>
+<button style="" class="button button-stable button-block  icon-left ion-power">Log out</button>
+</div>
+</div>
 
 -->
 

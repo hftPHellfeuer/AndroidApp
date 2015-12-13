@@ -5,92 +5,95 @@
       <label style="" class="item item-input">
         <span class="input-label">Title</span>
         <input placeholder="Title"  name="Title" type="text"  ng-model="value.Title"  >
-      </label>
+      </label><br>
 
       <label style="" class="item item-input">
         <span class="input-label">FirstName*</span>
         <input placeholder="FirstName"  name="FirstName" type="text"  ng-model="value.FirstName" required >
-      </label>
+      </label><br>
       <span class="help-block" ng-show="form.FirstName.$error.required"></span>
 
       <label style="" class="item item-input">
         <span class="input-label">LastName*</span>
         <input placeholder="LastName"  name="LastName" type="text" ng-model="value.LastName" required >
-      </label>
+      </label><br>
       <span class="help-block" ng-show="form.LastName.$error.required"></span>
 
       <label style="" class="item item-input">
         <span class="input-label">BirthDate</span>
         <input placeholder="BirthDate" name="BirthDate" type="date" ng-model="value.BirthDate"  >
-      </label>
+      </label><br>
 
       <label style="" class="item item-input">
-        <span class="input-label">Gender</span>
-        <ion-radio ng-value="'Male'" ng-model="value.Gender">MALE</ion-radio>
-        <ion-radio ng-model="value.Gender" ng-value="'Female'">FEMALE</ion-radio>
-      </label>
+        <span class="input-label" style="width: auto; box-sizing: content-box">Gender</span>
+        <ion-radio ng-value="'Male'" ng-model="value.Gender" class="icon ion-man" ></ion-radio>
+        <ion-radio ng-model="value.Gender" ng-value="'Female'" class="icon ion-woman "></ion-radio>
+      </label><br>
 
       <label style="" class="item item-input">
         <span class="input-label">Email*</span>
         <input placeholder="Email" name="Email"  type="email" ng-model="value.Email"  required >
-      </label>
+      </label><br>
       <span class="help-block" ng-show="form.Email.$error.email">Please enter the valid email id </span>
       <span class="help-block" ng-show="form.Email.$error.required"> </span>
 
 
       <label style="" class="item item-input">
         <span class="input-label">Password*</span>
-        <input placeholder="password"  name="password" type="password" ng-model="value.password"  required >
-      </label>
+        <input placeholder="password" id="password" name="password" type="password" ng-model="value.password" ng-required="" >
+      </label><br>
       <span class="help-block" ng-show="form.password.$error.required"> </span>
-
 
       <label style="" class="item item-input">
         <span class="input-label">Confirm Password*</span>
-        <input placeholder="confirm_password"  name="confirm_password"  type="password" ng-model="value.confirm_password" required>
-      </label>
+        <input placeholder="confirm_password" id="confirm_password" name="confirm_password" type="password"
+               ng-blur="checkPassword()" ng-model="value.confirm_password" ng-required="">
+      </label><br>
       <span class="help-block" ng-show="form.confirm_password.$error.required"></span>
 
+      <div class="msg-block" ng-if="compare_student == false">
+        <span class="msg-error" ng-form="!$valid">Passwords don't match.</span>
+      </div>
 
       <label style="" class="item item-input">
         <span class="input-label">street*</span>
         <input placeholder="street" name="street"  type="text" ng-model="value.street" required >
-      </label>
+      </label><br>
       <span class="help-block" ng-show="form.street.$error.required"></span>
 
       <label style="" class="item item-input">
         <span class="input-label">City*</span>
         <input placeholder="City"  name="City" type="text"  ng-model="value.City" required >
-      </label>
+      </label><br>
 
       <span class="help-block" ng-show="form.City.$error.required"></span>
 
       <label style="" class="item item-input">
         <span class="input-label">ZipCode*</span>
         <input placeholder="ZipCode" name="ZipCode" type="number" ng-model="value.ZipCode"  required >
-      </label>
+      </label><br>
 
       <span class="help-block" ng-show="form.ZipCode.$error.required"> </span>
 
       <label style="" class="item item-input">
         <span class="input-label">Region</span>
         <input placeholder="Region"  type="text" name="Region" ng-model="value.Region"   >
-      </label>
+      </label><br>
 
 
       <label style="" class="item item-input">
         <span class="input-label">Country*</span>
         <input placeholder="Country" name="Country"  type="text" ng-model="value.Country"  required >
-      </label>
+      </label><br>
 
       <span class="help-block" ng-show="form.Country.$error.required"> </span>
 
       <label style="" class="item item-input">
         <span class="input-label">PhoneNumber</span>
         <input placeholder="PhoneNumber" name="PhoneNumber" type="tel" ng-model="value.PhoneNumber"  >
-      </label>
+      </label><br>
 
-      <button class="button  button-block  icon-left ion-android-person" ng-disabled="!form.$valid" type="submit" >Register </button>
+      <button class="button  button-block  icon-left ion-android-person" ng-disabled="!form.$valid || compare_student == false" type="submit" >Register </button>
 
     </form>
     </ion-content>
