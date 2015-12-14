@@ -128,9 +128,7 @@
     <ion-content>
       <ion-list>
         <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="''">All</ion-radio>
-        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Information Technology'">Information Technology</ion-radio>
-        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Project Management'">Project Management</ion-radio>
-        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-value="'Human Ressources'">Human Ressources</ion-radio>
+        <ion-radio ng-click="closePopoverField()" class="my-popover-radio" ng-model="filter.field" ng-repeat="field in jobFields" ng-value="field">{{field}}</ion-radio>
       </ion-list>
     </ion-content>
   </ion-popover-view>

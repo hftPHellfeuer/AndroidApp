@@ -67,8 +67,13 @@ angular.module('Workforce.controllers', [])
     }
   })
 
-  .controller('filterCtrl', function ($scope, $ionicPopover, JobService){
+  .controller('filterCtrl', function ($scope,$http, $ionicPopover, JobService){
     initFilter();
+
+      $http({method: 'GET', url: 'http://jobcenter-hftspws10.rhcloud.com/rest/util/getjobfield'})
+        .success(function (result) {
+          $scope.jobFields = result;
+        })
 
     $ionicPopover.fromTemplateUrl('popover-field.html', {
       scope: $scope
