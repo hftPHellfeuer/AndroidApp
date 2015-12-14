@@ -2,8 +2,8 @@
   <ion-content padding="true">
 
     <h2 style="">{{job.title}}</h2>
-  <!--   <h3 style="">## JobType is not supplied</h3>
-    <h3 style="">## Company not supplied</h3> -->
+     <h3 style="">{{job.jobType}}</h3>
+     <h3 style="">{{job.enterprise.companyName}}</h3>
     <h5 style="">{{job.location}}</h5>
     <h3 style="">{{job.minSalary}} - {{job.maxSalary}} Euro</h3>
 
@@ -25,16 +25,10 @@
         </b>{{job.applicationDeadline}}
       </p>
 
-      <!--    <p>
-           <b>
-             <u>Position :</u>
-           </b> ## position not supplied
-         </p>
-   -->
          <p>
            <b>
              <u>min. Education Level :</u>
-           </b>{{job.minEducationLevel}}</p>
+           </b>{{job.education}}</p>
 
          <p>
          </p>

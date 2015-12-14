@@ -68,7 +68,7 @@ angular.module('Workforce.controllers', ['ngCordova'])
       console.log($scope.entprisevalue);
       RegisterService.register_Enterprise($scope.entprisevalue);
     }
-    
+
        $scope.checkPassword = function()
     {
       if($scope.Student_Register){
@@ -87,6 +87,20 @@ angular.module('Workforce.controllers', ['ngCordova'])
         .success(function (result) {
           $scope.jobFields = result;
         })
+
+    $http({method: 'GET', url: 'http://jobcenter-hftspws10.rhcloud.com/rest/util/getjobtype'})
+      .success(function (result) {
+        $scope.jobTypes = result;
+      })
+
+    $http({method: 'GET', url: 'http://jobcenter-hftspws10.rhcloud.com/rest/util/geteducationlevel'})
+      .success(function (result) {
+        $scope.jobEducationLevels = result;
+      })
+
+
+
+
 
     $ionicPopover.fromTemplateUrl('popover-field.html', {
       scope: $scope

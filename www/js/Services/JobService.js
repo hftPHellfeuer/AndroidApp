@@ -189,12 +189,12 @@ angular.module('Workforce.services', [])
       }
       if (filter.type != "") {
         filtered = filtered.filter(function (job) {
-          return job.type.replace("_", " ") == filter.type
+          return job.jobType.replace("_", " ") == filter.type
         });
       }
       if (filter.education != "") {
         filtered = filtered.filter(function (job) {
-          return job.minEducationLevel.replace("_", " ") == filter.education
+          return job.education.replace("_", " ") == filter.education
         });
       }
       if (filter.salary != 0) {
