@@ -31,16 +31,20 @@
 
       <label style="" class="item item-input">
         <span class="input-label">Password*</span>
-        <input placeholder="password"  type="password" name="password" ng-model="entprisevalue.password" required  >
+        <input placeholder="password"  id="password" type="password" name="password" ng-model="entprisevalue.password" required  >
       </label>
       <span class="help-block" ng-show="form.password.$error.required"> </span>
 
       <label style="" class="item item-input">
         <span class="input-label">Confirm Password*</span>
-        <input placeholder="confirm_password"  type="password" name="confirm_password" ng-model="entprisevalue.confirm_password" required  >
+        <input placeholder="confirm_password" id="confirm_password" type="password" name="confirm_password" ng-model="entprisevalue.confirm_password" ng-blur="checkPassword()" required  >
       </label>
-
       <span class="help-block" ng-show="form.confirm_password.$error.required"> </span>
+
+
+      <div class="msg-block" ng-if="compare_enterprise == false" >
+        <span class="msg-error" >Passwords don't match</span>
+      </div>
 
       <label style="" class="item item-input">
         <span class="input-label">street*</span>
@@ -78,7 +82,7 @@
       </label>
       <span class="help-block" ng-show="form.Country.$error.required"> </span>
 
-      <button class="button  button-block  icon-left ion-android-person" type="submit" ng-disabled="!form.$valid">Register </button>
+      <button class="button  button-block  icon-left ion-android-person" type="submit" ng-disabled="!form.$valid || compare_enterprise == false">Register </button>
 
 
 

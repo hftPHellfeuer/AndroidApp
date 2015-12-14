@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 
 
-angular.module('Workforce', ['ionic', 'Workforce.controllers', 'Workforce.directives','Workforce.routes', 'Workforce.services'])
+angular.module('Workforce', ['ionic', 'Workforce.controllers', 'Workforce.directives','Workforce.routes', 'Workforce.services','ngCordova'])
 
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
