@@ -2,10 +2,6 @@
   <ion-content class="has-header" padding="true">
     <form class="form-studentForm" style=""  name="form" role="form" ng-submit="Student_Register()">
 
-      <label style="" class="item item-input">
-        <span class="input-label">Title</span>
-        <input placeholder="Title"  name="Title" type="text"  ng-model="value.Title"  >
-      </label><br>
 
       <label style="" class="item item-input">
         <span class="input-label">FirstName*</span>
@@ -21,13 +17,15 @@
 
       <label style="" class="item item-input">
         <span class="input-label">BirthDate</span>
-        <input placeholder="BirthDate" name="BirthDate" type="date" ng-model="value.BirthDate"  >
+        <input placeholder="yyyy-MM-dd" id="BirthDate" name="BirthDate" type="date"  ng-model="value.BirthDate"  >
+
+
       </label><br>
 
       <label style="" class="item item-input">
         <span class="input-label" style="width: auto; box-sizing: content-box">Gender</span>
-        <ion-radio ng-value="'Male'" ng-model="value.Gender" class="icon ion-man" ></ion-radio>
-        <ion-radio ng-model="value.Gender" ng-value="'Female'" class="icon ion-woman "></ion-radio>
+        <ion-radio ng-value="'Male'" name="Gender" ng-model="value.Gender" class="icon ion-man" ></ion-radio>
+        <ion-radio ng-model="value.Gender" name="Gender" ng-value="'Female'" class="icon ion-woman "></ion-radio>
       </label><br>
 
       <label style="" class="item item-input">
