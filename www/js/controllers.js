@@ -2,8 +2,8 @@ angular.module('Workforce.controllers', ['ngCordova'])
   .controller('loginCtrl', function ($scope,LoginService,$state,$rootScope){
     $scope.data={};
     $scope.login = function() {
-      LoginService.loginUser($scope.data.Email, $scope.data.password).success(function (data) {
-        $rootScope.setUsername($scope.data.Email)
+
+      LoginService.loginUser($scope.data.Email, $scope.data.password).then(function (data) {
         $state.go('welcome',{},{reload:true});
       }).error(function(data) {
 
@@ -22,12 +22,6 @@ angular.module('Workforce.controllers', ['ngCordova'])
 
 
 }
-
-
-    $rootScope.setUsername = function(name) {
-      $rootScope.UserName = name;
-
-    }
 
 
 
