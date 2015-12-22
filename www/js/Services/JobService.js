@@ -94,7 +94,15 @@ angular.module('Workforce.services', [])
 
           localPromise = $http({method: 'GET', url: url})
             .success(function (result) {
-              dataCache = result;
+              dataCache = [];
+              angular.forEach(result, function (value, key) {
+
+                var temp = value;
+                temp.field = temp.field.replace("_", " ");
+                temp.jobType = temp.jobType.replace("_", " ");
+                temp.education = temp.education.replace("_", " ");
+                dataCache.push(temp);
+              })
               filteredJobs = filterResults();
               isLoading = false;
               $rootScope.$broadcast("jobListChanged");
