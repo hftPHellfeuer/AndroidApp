@@ -4,7 +4,7 @@
 
 angular.module('Workforce.services')
 
-.factory('RegisterService',function($http){
+.factory('RegisterService',function($http,md5Encryption){
 
   var value = {};
   var enterprisevalue = {};
@@ -14,16 +14,16 @@ angular.module('Workforce.services')
   return{
 
 
-    SetstudentFirstname : function(Firstname){
+    setStudentFirstname : function(Firstname){
       value.FirstName = Firstname;
     },
 
-    SetstudentLastname : function(Lastname){
+    setStudentLastname : function(Lastname){
 
       value.LastName = Lastname;
     },
 
-    SetstudentBirthdate : function(birthdate){
+    setStudentBirthdate : function(birthdate){
 
       value.BirthDate = birthdate;
      var final_date = new Date(value.BirthDate);
@@ -36,88 +36,100 @@ angular.module('Workforce.services')
       console.log(value.fin);
     },
 
-    SetstudentGender : function(gender){
+    setStudentGender : function(gender){
       value.Gender= gender;
     },
-    SetstudentEmail : function(email){
+    setStudentEmail : function (email){
 
       value.Email = email;
     },
-    SetstudentPassword : function(password){
+    setStudentPassword : function (password){
       value.password=password;
 
 
     },
 
-    SetstudentConfirm_password : function(confirm_password){
+    setStudentConfirm_password : function (confirm_password){
       value.confirm_password=confirm_password;
+
     },
 
-    SetstudentStreet: function (street) {
+    setStudentStreet: function (street) {
       value.street=street;
 
     },
-    SetstudentCity : function(city){
+    setStudentCity : function (city){
       value.City=city;
     },
-    SetstudentZipcode : function(zipcode){
+    setStudentZipcode : function (zipcode){
       value.ZipCode=zipcode;
     },
-    SetstudentRegion : function(region){
+    setStudentRegion : function (region){
+     if (region!= ""){
+       value.Region=region;
+     }
+      else {
+       value.Region="";
+     }
 
-      value.Region=region;
     },
-    SetstudentCountry : function(country){
+    setStudentCountry : function (country){
     value.Country=country;
 
     },
-    SetstudentPhonenumber : function(phnumber){
-      value.PhoneNumber = phnumber;
+    setStudentPhonenumber : function (phnumber){
+      if(phnumber!=""){
+        value.PhoneNumber = phnumber;
+      }
+      else {
+        value.PhoneNumber ="";
+      }
+
     },
 
     //*********************************ENTERPRISE***********************************************************
 
-    SetenterpriseCompanyname : function(companyname){
+    setEnterpriseCompanyName : function (companyname){
       enterprisevalue.CompanyName = companyname;
     },
 
-    SetenterpriseIndustrytype : function(industrytype){
-      enterprisevalue.IndustryType = industrytype;
-    },
-
-    SetenterpriseContactPerson : function(contactperson){
+    setEnterpriseContactPerson : function (contactperson){
       enterprisevalue.ContactPerson = contactperson;
     },
 
-    SetenterpriseEmail : function(email){
+    setEnterpriseEmail : function (email){
 
       enterprisevalue.Email = email;
     },
 
-    SetenterprisePassword : function(password){
+    setEnterprisePassword : function (password){
       enterprisevalue.password=password;
     },
 
-    SetenterpriseConfirm_password : function(confirm_password){
+    setEnterpriseConfirm_password : function (confirm_password){
       enterprisevalue.confirm_password=confirm_password;
     },
 
-    SetenterpriseStreet: function (street) {
+    setEnterpriseStreet: function (street) {
       enterprisevalue.street=street;
 
     },
-    SetenterpriseCity : function(city){
+    setEnterpriseCity : function (city){
       enterprisevalue.City=city;
     },
-    SetenterpriseZipcode : function(zipcode){
+    setEnterpriseZipcode : function (zipcode){
       enterprisevalue.ZipCode=zipcode;
     },
-    SetenterpriseRegion : function(region){
+    setEnterpriseRegion : function (region){
+     if (region != ""){
+       enterprisevalue.Region=region;
+     }
+      else {
+       enterprisevalue.Region="";
+     }
 
-      enterprisevalue.Region=region;
     },
-
-    SetenterpriseCountry : function(country){
+    setEnterpriseCountry : function (country){
       enterprisevalue.Country=country;
 
     },
@@ -127,38 +139,45 @@ angular.module('Workforce.services')
       var url = "";
 
       url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"
+      var Fname = encodeURIComponent(value.FirstName);
+      var Lname = encodeURIComponent(value.LastName);
+      var Finaltime = encodeURIComponent(value.fin);
+      var Gender = encodeURIComponent(value.Gender);
+      var email = encodeURIComponent(value.Email)
+      var street = encodeURIComponent(value.street);
+      var city = encodeURIComponent(value.City);
+      var zipcode = encodeURIComponent(value.ZipCode);
+      var region = encodeURIComponent(value.Region);
+      var country = encodeURIComponent(value.Country);
+      var phonenumber = encodeURIComponent(value.PhoneNumber)
 
-      if ( value.Region=="" && value.PhoneNumber=="") {
-       // url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Country+"/";
+      var enc_pass =md5Encryption.getHash(value.password);
 
-          var  param_value= +value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Country+"/"
-        enc_url = encodeURIComponent(param_value)
-        console.log(enc_url);
+
+      if ( region=="" && phonenumber=="") {
+        var  param_value= Fname+"/"+Lname+"/"+Finaltime+"/"+Gender+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+country+"/"
+
       }
-      else if (value.Region == "") {
-       // url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Country+"/"+PhoneNumber+"/"+value.PhoneNumber+"/";
-        var  param_value=+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Country+"/"+PhoneNumber+"/"+value.PhoneNumber+"/"
-        enc_url = encodeURIComponent(param_value)
-        console.log(enc_url);
+      else if (region == "") {
+
+        var  param_value=Fname+"/"+Lname+"/"+Finaltime+"/"+Gender+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+country+"/"+phonenumber+"/"+phonenumber+"/"
+
       }
-      else if (value.PhoneNumber == "") {
-        //url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+Region+"/"+value.Region+"/"+value.Country+"/";
-        var  param_value=+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+Region+"/"+value.Region+"/"+value.Country+"/"
-        enc_url = encodeURIComponent(param_value)
-        console.log(enc_url);
+      else if (phonenumber == "") {
+
+        var  param_value=Fname+"/"+Lname+"/"+Finaltime+"/"+Gender+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+region+"/"+region+"/"+country+"/"
+
       }
       else {
-        //url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Region+"/"+value.Country+"/"+value.PhoneNumber+"/";
-        var  param_value=+value.FirstName+"/"+value.LastName+"/"+value.fin+"/"+value.Gender+"/"+value.Email+"/"+value.password+"/" +value.confirm_password+"/"+value.street+"/"+value.City+"/"+value.ZipCode+"/"+value.Region+"/"+value.Country+"/"+value.PhoneNumber+"/"
-        enc_url = encodeURIComponent(param_value)
-        console.log(enc_url);
-      }
 
+        var  param_value=Fname+"/"+Lname+"/"+Finaltime+"/"+Gender+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+region+"/"+country+"/"+phonenumber+"/"
+
+      }
+var final =  url + param_value;
+      console.log(final)
       localPromise = $http({
-                      method: 'POST',
-                      url: url,
-                      headers: {'Content_Type': 'application/x-www-form-urlencoded'},
-                      data : enc_url
+                      method: 'GET',
+                      url: final
       })
         .success(function (result) {
 
@@ -177,30 +196,57 @@ angular.module('Workforce.services')
 
     register_Enterprise : function(){
 
+
       var url = "";
 
       url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/enterprise/"
 
-      if (enterprisevalue.Region == "") {
-        var  param_ent=+enterprisevalue.CompanyName+"/"+enterprisevalue.IndustryType+"/"+enterprisevalue.ContactPerson+"/"+enterprisevalue.Email+"/"+enterprisevalue.password+"/" +enterprisevalue.confirm_password+"/"+enterprisevalue.street+"/"+enterprisevalue.City+"/"+ZipCode+"/"+enterprisevalue.ZipCode+"/"+enterprisevalue.Country+"/"
-        enc_enturl = encodeURIComponent(param_ent)
-        console.log(enc_enturl);
+      var Companyname = encodeURIComponent(enterprisevalue.CompanyName);
+
+      var Contactperson = encodeURIComponent(enterprisevalue.ContactPerson);
+
+      var email = encodeURIComponent(enterprisevalue.Email)
+
+      var street = encodeURIComponent(enterprisevalue.street);
+
+      var city = encodeURIComponent(enterprisevalue.City);
+
+      var zipcode = encodeURIComponent(enterprisevalue.ZipCode);
+
+      var region = encodeURIComponent(enterprisevalue.Region);
+
+      var country = encodeURIComponent(enterprisevalue.Country);
+
+
+      var enc_pass =md5Encryption.getHash(enterprisevalue.password);
+
+
+
+
+
+      if (region == "") {
+        var  param_ent=Companyname+"/"+Contactperson+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+zipcode+"/"+country+"/"
+
       }
       else {
-        var  param_ent=+enterprisevalue.CompanyName+"/"+enterprisevalue.IndustryType+"/"+enterprisevalue.ContactPerson+"/"+enterprisevalue.Email+"/"+enterprisevalue.password+"/" +enterprisevalue.confirm_password+"/"+enterprisevalue.street+"/"+enterprisevalue.City+"/"+enterprisevalue.ZipCode+"/"+enterprisevalue.Region+"/"+enterprisevalue.Country+"/"
-        enc_enturl = encodeURIComponent(param_ent)
-        console.log(enc_enturl);
+        var  param_ent=Companyname+"/"+Contactperson+"/"+email+"/"+enc_pass+"/"+street+"/"+city+"/"+zipcode+"/"+region+"/"+country+"/"
+
       }
 
+
+      var final =  url + param_ent;
+      console.log(Companyname)
+      console.log(final)
+
+
       localPromise = $http({
-        method: 'POST',
-        url: url,
-        headers: {'Content_Type': 'application/x-www-form-urlencoded'},
-        data : enc_enturl
+        method: 'GET',
+        url: final,
+
       })
         .success(function (result) {
 
-          console.log("successful register")
+          console.log("successful Enterprise register")
 
         })
         .error(function () {

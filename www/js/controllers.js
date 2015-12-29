@@ -1,11 +1,11 @@
-angular.module('Workforce.controllers', ['ngCordova'])
+angular.module('Workforce.controllers', [])
   .controller('loginCtrl', function ($scope,LoginService,$state,$rootScope){
     $scope.data={};
     $scope.login = function() {
 
       LoginService.loginUser($scope.data.Email, $scope.data.password).then(function (data) {
         $state.go('welcome',{},{reload:true});
-      }).error(function(data) {
+      }),(function(data) {
 
         alert('login failed : incorrect username or password');
       });
@@ -41,7 +41,7 @@ angular.module('Workforce.controllers', ['ngCordova'])
     }
 })
 
-  .controller('registerCtrl', function ($scope,$http,RegisterService) {
+  .controller('registerCtrl', function ($scope,$http,RegisterService,$state) {
 
     $scope.value={};
     $scope.entprisevalue={};
@@ -52,36 +52,36 @@ angular.module('Workforce.controllers', ['ngCordova'])
 
     $scope.Student_Register = function(){
 
-      RegisterService.SetstudentFirstname($scope.value.FirstName);
-      RegisterService.SetstudentLastname($scope.value.LastName);
-      RegisterService.SetstudentBirthdate($scope.value.BirthDate);
-      RegisterService.SetstudentGender($scope.value.Gender);
-      RegisterService.SetstudentEmail($scope.value.Email);
-      RegisterService.SetstudentPassword($scope.value.password);
-      RegisterService.SetstudentConfirm_password($scope.value.confirm_password);
-      RegisterService.SetstudentStreet($scope.value.street);
-      RegisterService.SetstudentCity($scope.value.City);
-      RegisterService.SetstudentZipcode($scope.value.ZipCode);
-      RegisterService.SetstudentRegion($scope.value.Region);
-      RegisterService.SetstudentCountry($scope.value.Country);
-      RegisterService.SetstudentPhonenumber($scope.value.PhoneNumber);
+      RegisterService.setStudentFirstname($scope.value.FirstName);
+      RegisterService.setStudentLastname($scope.value.LastName);
+      RegisterService.setStudentBirthdate($scope.value.BirthDate);
+      RegisterService.setStudentGender($scope.value.Gender);
+      RegisterService.setStudentEmail($scope.value.Email);
+      RegisterService.setStudentPassword($scope.value.password);
+      RegisterService.setStudentConfirm_password($scope.value.confirm_password);
+      RegisterService.setStudentStreet($scope.value.street);
+      RegisterService.setStudentCity($scope.value.City);
+      RegisterService.setStudentZipcode($scope.value.ZipCode);
+      RegisterService.setStudentRegion($scope.value.Region);
+      RegisterService.setStudentCountry($scope.value.Country);
+      RegisterService.setStudentPhonenumber($scope.value.PhoneNumber);
+
       RegisterService.register_Student();
     };
 
     $scope.enterprise_register = function(){
 
       console.log($scope.entprisevalue);
-      RegisterService.SetenterpriseCompanyname($scope.entprisevalue.CompanyName);
-      RegisterService.SetenterpriseIndustrytype($scope.entprisevalue.IndustryType);
-      RegisterService.SetenterpriseContactPerson($scope.entprisevalue.ContactPerson);
-      RegisterService.SetenterpriseEmail($scope.entprisevalue.Email);
-      RegisterService.SetenterprisePassword($scope.entprisevalue.password);
-      RegisterService.SetenterpriseConfirm_password($scope.entprisevalue.confirm_password);
-      RegisterService.SetenterpriseStreet($scope.entprisevalue.street);
-      RegisterService.SetenterpriseCity($scope.entprisevalue.City);
-      RegisterService.SetenterpriseZipcode($scope.entprisevalue.ZipCode);
-      RegisterService.SetenterpriseRegion($scope.entprisevalue.Region);
-      RegisterService.SetenterpriseCountry($scope.entprisevalue.Country);
+      RegisterService.setEnterpriseCompanyName($scope.entprisevalue.CompanyName);
+      RegisterService.setEnterpriseContactPerson($scope.entprisevalue.ContactPerson);
+      RegisterService.setEnterpriseEmail($scope.entprisevalue.Email);
+      RegisterService.setEnterprisePassword($scope.entprisevalue.password);
+      RegisterService.setEnterpriseConfirm_password($scope.entprisevalue.confirm_password);
+      RegisterService.setEnterpriseStreet($scope.entprisevalue.street);
+      RegisterService.setEnterpriseCity($scope.entprisevalue.City);
+      RegisterService.setEnterpriseZipcode($scope.entprisevalue.ZipCode);
+      RegisterService.setEnterpriseRegion($scope.entprisevalue.Region);
+      RegisterService.setEnterpriseCountry($scope.entprisevalue.Country);
       RegisterService.register_Enterprise($scope.entprisevalue);
 
 
@@ -229,32 +229,6 @@ angular.module('Workforce.controllers', ['ngCordova'])
     });
   })
 
-  .controller('ImageController', ['$scope','$rootScope','$cordovaCamera',function ($scope, $cordovaCamera,$cordovaImagePicker) {
-
-
-  $scope.ready = false;
-  $scope.images = [];
-
-$scope.ChoosePhoto = function()
-{
-
-  var options = {
-    maximumImagesCount: 10,
-    width: 800,
-    height: 800,
-    quality: 80
-  };
-
-  $cordovaImagePicker.getPictures(options) .then(function (results) {
-    for (var i = 0; i < results.length; i++) {
-      console.log('Image URI: ' + results[i]);
-    }
-  }, function(error) {
-    // error getting photos
-  });
-
-}
-}])
 
 
 
