@@ -92,28 +92,7 @@ angular.module('Workforce.services', [])
           filteredJobs = filterResults();
         }
       },
-
-      loadApplications : function(){
-
-        var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/getapplications/" + LoginService.getUser()+
-          "/" + LoginService.getPW()+ "/";
-
-        localPromise = $http({method: 'GET', url: url})
-          .success(function (result) {
-            jobOfferCache = result;
-            $rootScope.$broadcast("applicationListChanged");
-          })
-
-        return localPromise;
-      },
-
-
-      getApplications: function()
-      {
-        return jobOfferCache;
-      },
-
-
+      
 
       // Setter for Filter
       setFilterKeywords: function (keywords) {
