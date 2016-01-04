@@ -18,7 +18,7 @@
         <input placeholder="Location" type="text" ng-model="location">
       </label>
       <br>
-      <button style="submit" class=" padding-top padding-bottom button button-stable button-block  icon-left ion-search"
+      <button class=" padding-top padding-bottom button button-stable button-block  icon-left ion-search"
          ng-click="search()">Search</button>
     </form>
 
@@ -27,17 +27,19 @@
         <div class="item item-divider">
           Welcome, {{username}}
         </div>
-        <!--
-            <ion-content ng-controller="ImageController"  padding="true">
-              <!--  <button class="button button-full button-assertive" ng-click="ChoosePhoto()">Choose Photo</button>
-               <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" style="text-align: center"> <ion-content>-->
 
+        <div ng-if="!isCompany" >
+          <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-android-person"
+             href="#/applications">My Application</a>
+          <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-bookmark"
+             href="#/bookmarks">My Bookmarks</a>
+        </div>
 
-        <a ng-if="username != ''" style="" class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-android-person"
-           href="#/applications">My Application</a>
-        <a ng-if="username != ''" style="" class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-bookmark"
-           href="#/bookmarks">My Bookmarks</a>
-        <a ng-if="username != ''" ng-controller="loginCtrl" ng-click="logout()" style=""
+        <div ng-if="isCompany" >
+          <a class="button margin-5 padding-top padding-bottom button-stable button-block icon-left ion-clipboard"
+             href="#/offers">My Offers</a>
+        </div>
+        <a ng-controller="loginCtrl" ng-click="logout()" style=""
            class="button padding-top padding-bottom margin-5 button-stable button-block  icon-left ion-android-person">Log out</a>
       </div>
 
@@ -48,24 +50,7 @@
            href="#/login">Log In</a>
         <a ng-if="username == ''" style="" class="button button-stable padding-top padding-bottom button-block icon-left ion-ios-body"
            href="#/register">Register</a>
-
-
       </div>
-
-
-
-    <!--
-         <div style="" class="list card">
-           <div class="item item-divider">Patricks Area</div>
-           <div class="item item-body">
-             <a style="" class="button button-stable button-block  icon-left ion-email" href="#/myApplications">My Applications</a>
-             <a style="" class="button button-stable button-block  icon-left ion-bookmark" href="#/myBookmarks">My Bookmarks</a>
-             <button style="" class="button button-stable button-block  icon-left ion-person">My Profile</button>
-             <button style="" class="button button-stable button-block  icon-left ion-power">Log out</button>
-           </div>
-         </div>
-
-   -->
 
 
   </ion-content>

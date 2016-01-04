@@ -4,12 +4,47 @@
 
 angular.module('Workforce.services')
 
-.factory('ApplicationService', function($http, JobService) {
+.factory('ApplicationService', function($http, $rootScope, LoginService, JobService) {
+
+  var applicationCache = [];
+  var isLoading = false;
 
   return{
-    getApplications : function(Username){
-      return JobService.search("", "Stuttgart");
+    isLoading: function()
+    {
+      return isLoading;
+    },
+
+    loadApplications : function() {
+      var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/getapplications/" + LoginService.getUser() +
+        "/" + LoginService.getPW() + "/";
+      isLoading = true;
+
+      $http({method: 'GET', url: url})
+        .success(function (result) {
+          var allApplications = [];
+          angular.forEach(result, function (value, key) {
+            var temp = value.job;
+            temp.applicationStatus = value.status;
+            temp.field = temp.field.replace("_", " ");
+            temp.jobType = temp.jobType.replace("_", " ");
+            temp.education = temp.education.replace("_", " ");
+            allApplications.push(temp);
+          })
+          applicationCache = allApplications;
+          JobService.setJobOffers(allApplications);
+          $rootScope.$broadcast("applicationListChanged");
+          isLoading = false;
+          $rootScope.$broadcast("loadingStateChanged");
+        })
+    },
+
+    getApplications: function()
+    {
+      return applicationCache;
     }
+
   }
+
 
 })

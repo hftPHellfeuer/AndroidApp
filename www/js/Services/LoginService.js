@@ -11,6 +11,9 @@ angular.module('Workforce.services')
     var result = false;
     var username = '';
     var detail = [];
+    var accountType= '';
+    var passwordEnc = '';
+    var password = '';
 
 
 
@@ -18,7 +21,8 @@ angular.module('Workforce.services')
       isAuth = false;
       token = '';
       username = '';
-
+      accountType = '';
+      passwordEnc = '';
     }
 
 
@@ -27,10 +31,21 @@ angular.module('Workforce.services')
         return username;
       },
 
+      isCompany: function()
+      {
+        return accountType;
+      },
+
+      getPW: function()
+      {
+        return password;
+      },
+
+
       loginUser: function (email, pw) {
         var deferred = $q.defer();
 
-
+        password = pw;
         var enc_pw = md5Encryption.getHash(pw);
         console.log(enc_pw)
 
@@ -44,6 +59,8 @@ angular.module('Workforce.services')
              token = detail.id;
              isAuth = true;
              username = email;
+             accountType = result.accountType;
+             passwordEnc = result.password;
 
              console.log("This is the token"+token)
            }else {

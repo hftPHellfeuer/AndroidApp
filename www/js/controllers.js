@@ -32,11 +32,12 @@ angular.module('Workforce.controllers', [])
     $scope.keywords= JobService.getFilterKeywords();
     $scope.location= JobService.getFilterLocation();
     $scope.username = LoginService.getUser();
+    $scope.isCompany = LoginService.isCompany()== 'Company';
 
     $scope.search = function(){
       JobService.setFilterKeywords(this.keywords);
       JobService.setFilterLocation(this.location);
-      JobService.update();
+      JobService.loadJobOffers();
       $state.go('searchResults',{},{reload:true});
     }
 })
@@ -45,7 +46,7 @@ angular.module('Workforce.controllers', [])
 
     $scope.value={};
     $scope.entprisevalue={};
-        $scope.pwOK = false;
+    $scope.pwOK = false;
     $scope.compare_student=false;
     $scope.compare_enterprise=false
 
@@ -83,11 +84,9 @@ angular.module('Workforce.controllers', [])
       RegisterService.setEnterpriseRegion($scope.entprisevalue.Region);
       RegisterService.setEnterpriseCountry($scope.entprisevalue.Country);
       RegisterService.register_Enterprise($scope.entprisevalue);
-
-
     }
 
-       $scope.checkPassword = function()
+    $scope.checkPassword = function()
     {
       if($scope.Student_Register){
         $scope.compare_student =angular.equals($scope.value.password, $scope.value.confirm_password);
@@ -101,7 +100,7 @@ angular.module('Workforce.controllers', [])
   .controller('filterCtrl', function ($scope,$http, $ionicPopover, JobService){
     initFilter();
 
-      $http({method: 'GET', url: 'http://jobcenter-hftspws10.rhcloud.com/rest/util/getjobfield'})
+    $http({method: 'GET', url: 'http://jobcenter-hftspws10.rhcloud.com/rest/util/getjobfield'})
         .success(function (result) {
           $scope.jobFields = result;
         })
@@ -115,10 +114,6 @@ angular.module('Workforce.controllers', [])
       .success(function (result) {
         $scope.jobEducationLevels = result;
       })
-
-
-
-
 
     $ionicPopover.fromTemplateUrl('popover-field.html', {
       scope: $scope
@@ -163,7 +158,7 @@ angular.module('Workforce.controllers', [])
       JobService.setFilterType(filter.type);
       JobService.setFilterKeywords(filter.keywords);
       JobService.setFilterLocation(filter.location);
-      JobService.update();
+      JobService.loadJobOffers();
     }
 
     $scope.resetFilter = function(){
@@ -172,7 +167,7 @@ angular.module('Workforce.controllers', [])
       JobService.setFilterExperience(0);
       JobService.setFilterField("");
       JobService.setFilterType("");
-      JobService.update();
+      JobService.loadJobOffers();
       initFilter();
     }
 
@@ -186,12 +181,11 @@ angular.module('Workforce.controllers', [])
       $scope.filter.keywords = JobService.getFilterKeywords();
       $scope.filter.location = JobService.getFilterLocation();
     }
-
   })
 
   .controller('searchResultsCtrl', function ($scope, $ionicSideMenuDelegate, JobService) {
 
-    $scope.dragContent = false; // enables scrolling on left side
+    $scope.dragContent = false; // enables scrolling on left side (filter)
     $scope.JobOffers = JobService.getJobOffers();
     $scope.isLoading = JobService.isLoading();
 
@@ -213,19 +207,49 @@ angular.module('Workforce.controllers', [])
     $scope.job = JobService.getJobDetails($stateParams.jobId);
   })
 
-  .controller('applicationsCtrl', function ($scope,LoginService,ApplicationService) {
-    $scope.applications={};
-    ApplicationService.getApplications(LoginService.getUser()).then(function (result)
-    {
-      $scope.applications = result.data;
+  .controller('applicationsCtrl', function ($scope,ApplicationService) {
+    $scope.applications = ApplicationService.getApplications();
+    $scope.isLoading = true;
+    ApplicationService.loadApplications();
+
+    $scope.doRefresh = function() {
+      ApplicationService.loadApplications();
+    }
+
+    $scope.$on('applicationListChanged', function() {
+      $scope.applications = ApplicationService.getApplications();
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+
+    $scope.$on('loadingStateChanged', function() {
+      $scope.isLoading = ApplicationService.isLoading();
     });
   })
 
-  .controller('bookmarksCtrl', function ($scope,LoginService,BookmarkService) {
-    $scope.bookmarks={};
+  .controller('bookmarksCtrl', function ($scope, BookmarkService) {
+    $scope.bookmarks = BookmarkService.getBookmarks();
+    $scope.isLoading = true;
+    BookmarkService.loadBookmarks();
+
+    $scope.doRefresh = function() {
+      BookmarkService.loadBookmarks();
+    }
+
+    $scope.$on('bookmarkListChanged', function() {
+      $scope.bookmarks = BookmarkService.getBookmarks();
+      $scope.$broadcast('scroll.refreshComplete');
+    });
+
+    $scope.$on('loadingStateChanged', function() {
+      $scope.isLoading = BookmarkService.isLoading();
+    });
+  })
+
+  .controller('offersCtrl', function ($scope,LoginService,BookmarkService) {
+    $scope.offers={};
     BookmarkService.getBookmarks(LoginService.getUser()).then(function (result)
     {
-      $scope.bookmarks = result.data;
+      $scope.offers = result.data;
     });
   })
 
