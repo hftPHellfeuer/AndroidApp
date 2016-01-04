@@ -8,6 +8,7 @@ angular.module('Workforce.services')
 
   var applicationCache = [];
   var isLoading = false;
+  var initialized = false;
 
   return{
     isLoading: function()
@@ -36,15 +37,48 @@ angular.module('Workforce.services')
           $rootScope.$broadcast("applicationListChanged");
           isLoading = false;
           $rootScope.$broadcast("loadingStateChanged");
+          initialized= true;
         })
     },
 
     getApplications: function()
     {
       return applicationCache;
+    },
+
+    isInitialized: function()
+    {
+      return initialized;
+    },
+
+    resetInitialized:function()
+    {
+      initialized= false;
+    },
+
+    isApplied: function (jobId)
+    {
+      var returnValue = false;
+      angular.forEach(applicationCache, function (value, key) {
+        if (value.id == jobId) {
+          returnValue = true;
+        }
+      });
+      return returnValue;
+    },
+
+    doApply: function(jobId)
+    {
+      var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/applyforjob/" + LoginService.getUser() +
+        "/" + LoginService.getPW() + "/" + jobId;
+      $http({method: 'GET', url: url})
+        .success(function (result) {
+
+        })
     }
 
   }
+
 
 
 })

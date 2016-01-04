@@ -7,6 +7,7 @@ angular.module('Workforce.services')
 
     var bookmarkCache = [];
     var isLoading = false;
+    var initialized = false;
 
     return{
       isLoading: function()
@@ -34,6 +35,7 @@ angular.module('Workforce.services')
             $rootScope.$broadcast("bookmarkListChanged");
             isLoading = false;
             $rootScope.$broadcast("loadingStateChanged");
+            initialized= true;
           })
       },
 
@@ -42,6 +44,37 @@ angular.module('Workforce.services')
         return bookmarkCache;
       },
 
+      isInitialized: function()
+      {
+        return initialized;
+      },
+
+      resetInitilized:function()
+      {
+        initialized= false;
+      },
+
+      isBookmarked: function (jobId)
+      {
+        var returnValue = false;
+        angular.forEach(bookmarkCache, function (value, key) {
+          if (value.id == jobId) {
+           returnValue = true;
+          }
+        });
+        return returnValue;
+      },
+
+      doBookmark: function(jobId)
+      {
+        var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/bookmarkjob/" + LoginService.getUser() +
+          "/" + LoginService.getPW() + "/" + jobId;
+        $http({method: 'GET', url: url})
+          .success(function (result) {
+
+          })
+
+      }
     }
 
   })

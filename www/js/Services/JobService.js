@@ -2,7 +2,7 @@
  * Created by Patrick on 23.11.2015.
  */
 angular.module('Workforce.services', [])
-  .factory('JobService', function ($http, $rootScope, LoginService) {
+  .factory('JobService', function ($http, $rootScope) {
 
     var jobOfferCache = [];
     var filteredJobs = [];
@@ -92,7 +92,7 @@ angular.module('Workforce.services', [])
           filteredJobs = filterResults();
         }
       },
-      
+
 
       // Setter for Filter
       setFilterKeywords: function (keywords) {

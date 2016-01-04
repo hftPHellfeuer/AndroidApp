@@ -1,4 +1,4 @@
-<ion-view style="" title="Job Details" ng-controller="jobDetailsCtrl">
+<ion-view style="" title="Job Details" ng-controller="jobDetailsCtrl" cache-view="false">
   <ion-content padding="true">
 
     <h2 style="">{{job.title}}</h2>
@@ -49,9 +49,7 @@
              <u>Key Skills:</u>
            </b>
          <ul class="bullletList">
-           <li data-ng-repeat="skill in job.keySkills" >
-                 {{skill}}
-           </li>
+            {{job.keySkills}}
          </ul>
          </p>
 
@@ -67,8 +65,22 @@
           </b>{{job.timesOfVisits}} times
         </p>
       </div>
-      <button style="" class="button button-stable button-block  icon-left ion-bookmark">Bookmark</button>
-      <button style="" class="button button-stable button-block  icon-left ion-briefcase">Apply!</button>
+    <div ng-if="isLoggedIn">
+      <div ng-if="!isBookmarked">
+        <button style="" ng-click="bookmark()" class="button button-stable button-block  icon-left ion-bookmark">Bookmark</button>
+      </div>
+      <div ng-if="isBookmarked">
+        <button style="" ng-click="removeBookmark()" class="button button-balanced button-block  icon-left ion-bookmark">Bookmarked</button>
+      </div>
+
+      <div ng-if="!isApplied">
+        <button style="" ng-click="apply()" class="button button-stable button-block  icon-left ion-briefcase">Apply</button>
+      </div>
+      <div ng-if="isApplied">
+        <button style="" class="button button-balanced button-block  icon-left ion-briefcase">Applied</button>
+      </div>
+
+    </div>
 
 
   </ion-content>

@@ -1,22 +1,22 @@
 <ion-view cache-view="false">
   <ion-side-menus class="has-header">
     <!--Main content -->
-    <ion-side-menu-content >
+    <ion-side-menu-content>
       <ion-header-bar>
-          <button class="button icon ion-funnel" menu-toggle="left">Filter</button>
-          <h1 class="title font-size-24 grey-text">Search results</h1>
+        <button class="button icon ion-funnel" menu-toggle="left">Filter</button>
+        <h1 class="title font-size-24 grey-text">Search results</h1>
       </ion-header-bar>
       <ion-content>
         <div class="text-center" ng-if="isLoading">
           <br>
           <ion-spinner icon="bubbles"></ion-spinner>
           <h1 class="title font-size-24 grey-text">loading results</h1>
-          </div>
-        <div class="list">
-         <a class="item card padding-left-7" data-ng-repeat="offer in JobOffers" href="#/jobDetails/{{offer.id}}">
-            <div ng-include="'templates/common/jobOffer.html'"></div>
-          </a>
         </div>
+          <div class="list">
+            <a class="item card padding-left-7" data-ng-repeat="offer in JobOffers" href="#/jobDetails/{{offer.id}}">
+              <div ng-include="'templates/common/jobOffer.html'"></div>
+            </a>
+          </div>
       </ion-content>
     </ion-side-menu-content>
 

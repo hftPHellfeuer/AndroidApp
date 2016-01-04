@@ -28,16 +28,16 @@
           Welcome, {{username}}
         </div>
 
-        <div ng-if="!isCompany" >
+        <div ng-if="!isEnterprise" >
           <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-android-person"
              href="#/applications">My Application</a>
           <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-bookmark"
              href="#/bookmarks">My Bookmarks</a>
         </div>
 
-        <div ng-if="isCompany" >
-          <a class="button margin-5 padding-top padding-bottom button-stable button-block icon-left ion-clipboard"
-             href="#/offers">My Offers</a>
+        <div ng-if="isEnterprise" >
+         <!-- <a class="button margin-5 padding-top padding-bottom button-stable button-block icon-left ion-clipboard"
+             href="#/offers">My Offers</a>-->
         </div>
         <a ng-controller="loginCtrl" ng-click="logout()" style=""
            class="button padding-top padding-bottom margin-5 button-stable button-block  icon-left ion-android-person">Log out</a>

@@ -31,9 +31,9 @@ angular.module('Workforce.services')
         return username;
       },
 
-      isCompany: function()
+      isEnterprise: function()
       {
-        return accountType;
+        return accountType == 'Enterprise';
       },
 
       getPW: function()
@@ -61,7 +61,6 @@ angular.module('Workforce.services')
              username = email;
              accountType = result.accountType;
              passwordEnc = result.password;
-
              console.log("This is the token"+token)
            }else {
              deferred.reject('Wrong credentials.');
@@ -84,7 +83,6 @@ angular.module('Workforce.services')
       logoutUser: function () {
         console.log("this is the logout user function")
         destroyUser();
-
       }
 
     }
