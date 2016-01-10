@@ -46,6 +46,14 @@ angular.module('Workforce.services', [])
             returnValue = value;
           }
         });
+        if (returnValue.length == 0) // needed when applied or bookmarked before
+        {
+          angular.forEach(filteredJobs, function (value, key) {
+            if (value.id == jobId) {
+              returnValue = value;
+            }
+          });
+        }
         return returnValue;
       },
 

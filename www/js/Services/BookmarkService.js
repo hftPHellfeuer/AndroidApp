@@ -16,27 +16,7 @@ angular.module('Workforce.services')
       },
 
       loadBookmarks : function() {
-        var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/getbookmarks/" + LoginService.getUser() +
-          "/" + LoginService.getPW() + "/";
-        isLoading = true;
-
-        $http({method: 'GET', url: url})
-          .success(function (result) {
-            var allBookmarks = [];
-            angular.forEach(result, function (value, key) {
-              var temp = value.job;
-              temp.field = temp.field.replace("_", " ");
-              temp.jobType = temp.jobType.replace("_", " ");
-              temp.education = temp.education.replace("_", " ");
-              allBookmarks.push(temp);
-            })
-            bookmarkCache = allBookmarks;
-            JobService.setJobOffers(allBookmarks);
-            $rootScope.$broadcast("bookmarkListChanged");
-            isLoading = false;
-            $rootScope.$broadcast("loadingStateChanged");
-            initialized= true;
-          })
+        doLoadBookmarks();
       },
 
       getBookmarks: function()
@@ -71,10 +51,44 @@ angular.module('Workforce.services')
           "/" + LoginService.getPW() + "/" + jobId;
         $http({method: 'GET', url: url})
           .success(function (result) {
-
+            doLoadBookmarks();
           })
 
+      },
+
+      removeBookmark: function (jobId) {
+          var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/deletebookmark/" + LoginService.getUser() +
+            "/" + LoginService.getPW() + "/" + jobId;
+        $http({method: 'GET', url: url})
+          .success(function (result) {
+            doLoadBookmarks();
+          })
       }
+    }
+
+    function doLoadBookmarks()
+    {
+      var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/getbookmarks/" + LoginService.getUser() +
+        "/" + LoginService.getPW() + "/";
+      isLoading = true;
+
+      $http({method: 'GET', url: url})
+        .success(function (result) {
+          var allBookmarks = [];
+          angular.forEach(result, function (value, key) {
+            var temp = value.job;
+            temp.field = temp.field.replace("_", " ");
+            temp.jobType = temp.jobType.replace("_", " ");
+            temp.education = temp.education.replace("_", " ");
+            allBookmarks.push(temp);
+          })
+          bookmarkCache = allBookmarks;
+          JobService.setJobOffers(allBookmarks);
+          $rootScope.$broadcast("bookmarkListChanged");
+          isLoading = false;
+          $rootScope.$broadcast("loadingStateChanged");
+          initialized= true;
+        })
     }
 
   })

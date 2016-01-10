@@ -6,13 +6,23 @@ angular.module('Workforce.controllers', [])
       LoginService.loginUser($scope.data.Email, $scope.data.password).then(function (data) {
         ApplicationService.loadApplications();
         BookmarkService.loadBookmarks();
-        $state.go('welcome', {}, {reload: true});
+        $state.go('welcome',{},{reload:true});
+      },function(data) {
 
-      }), (function (data) {
-        alert('login failed : incorrect username or password');
+        var alertPopup = $ionicPopup.alert({
+          title: 'Wrong Credentials!',
+          template: 'Username or Password is incorrect'
+        });
+        alertPopup.then(function(res) {
+          console.log('invalid credentials');
+        });
+
+
       });
 
-    }
+    };
+
+
 
 
     $scope.logout = function () {
@@ -66,7 +76,45 @@ angular.module('Workforce.controllers', [])
       RegisterService.setStudentRegion($scope.value.Region);
       RegisterService.setStudentCountry($scope.value.Country);
       RegisterService.setStudentPhonenumber($scope.value.PhoneNumber);
-      RegisterService.register_Student();
+
+      RegisterService.register_Student().then(function(result){
+        var value = result
+        var status= value.persistenceStatus
+        console.log(status)
+        if(status == "false"){
+          var alertPopup = $ionicPopup.alert({
+            title: 'Email already registered!',
+            template: 'Please enter the valid/new email id'
+
+          });
+          alertPopup.then(function(res) {
+
+          });
+
+        }
+        else {
+          var alertPopup = $ionicPopup.alert({
+            title: 'Registration Successful!',
+            template: 'You may login now'
+          });
+
+          $state.go('login',{},{reload:true})
+
+          alertPopup.then(function(res) {
+
+
+          });
+        }
+      },function(error){
+        console.log('unsuccessful registration')
+        var alertPopup = $ionicPopup.alert({
+          title: 'Email Id already registered!',
+          template: 'Please enter the new email id'
+        });
+        alertPopup.then(function(res) {
+
+        });
+      })
     };
 
     $scope.enterprise_register = function () {
@@ -88,6 +136,10 @@ angular.module('Workforce.controllers', [])
     $scope.checkPassword = function () {
       if ($scope.Student_Register) {
         $scope.compare_student = angular.equals($scope.value.password, $scope.value.confirm_password);
+        if($scope.compare_student==false){
+
+
+        }
       }
       if ($scope.enterprise_register) {
         $scope.compare_enterprise = angular.equals($scope.entprisevalue.password, $scope.entprisevalue.confirm_password);
@@ -208,15 +260,18 @@ angular.module('Workforce.controllers', [])
 
     $scope.bookmark = function () {
       BookmarkService.doBookmark($stateParams.jobId);
-      BookmarkService.loadBookmarks();
     }
     $scope.removeBookmark = function () {
+      BookmarkService.removeBookmark($stateParams.jobId);
+    }
 
+    $scope.cancelApplication = function()
+    {
+      ApplicationService.cancelApplication($stateParams.jobId);
     }
 
     $scope.apply = function () {
       ApplicationService.doApply($stateParams.jobId);
-      ApplicationService.loadApplications();
     }
 
     $scope.$on('applicationListChanged', function () {

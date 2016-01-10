@@ -29,7 +29,6 @@ angular.module('Workforce.routes', [])
           'student-tab':{templateUrl: 'templates/student.html',
             controller: 'registerCtrl'}
           }
-
       })
 
       .state('register.enterprise', {

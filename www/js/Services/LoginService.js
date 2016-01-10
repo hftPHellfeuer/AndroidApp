@@ -49,7 +49,7 @@ angular.module('Workforce.services')
         var enc_pw = md5Encryption.getHash(pw);
         console.log(enc_pw)
 
-        var url = "http://cors.io/?u=http://jobcenter-hftspws10.rhcloud.com/rest/account/login/" + email + "/" + pw;
+        var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/login/" + email + "/" + pw;
         console.log(url);
 
          $http({method: 'GET', url: url}).success(function (result){
@@ -62,18 +62,21 @@ angular.module('Workforce.services')
              accountType = result.accountType;
              passwordEnc = result.password;
              console.log("This is the token"+token)
-           }else {
-             deferred.reject('Wrong credentials.');
-             result = false;
-           }
 
-           deferred.promise.success = function(fn) {
+
+           deferred.promise.success = function (fn) {
              promise.then(fn);
              return promise;
            }
-           deferred.promise.error = function(fn) {
-             promise.then(null, fn);
-             return promise;
+           } else {
+             console.log('wrong credentials')
+             deferred.reject('Wrong credentials.');
+             result = false;
+
+             deferred.promise.error = function (fn) {
+               promise.then(null, fn);
+               return promise;
+             }
            }
         });
         return deferred.promise;

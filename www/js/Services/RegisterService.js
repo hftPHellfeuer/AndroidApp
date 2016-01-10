@@ -4,11 +4,11 @@
 
 angular.module('Workforce.services')
 
-.factory('RegisterService',function($http,md5Encryption){
+.factory('RegisterService',function($http,$q, md5Encryption){
 
   var value = {};
   var enterprisevalue = {};
-  var localPromise = null
+
 
 
   return{
@@ -137,6 +137,7 @@ angular.module('Workforce.services')
 
     register_Student : function(){
       var url = "";
+      var deferred = $q.defer();
 
       url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"
       var Fname = encodeURIComponent(value.FirstName);
@@ -175,23 +176,16 @@ angular.module('Workforce.services')
       }
 var final =  url + param_value;
       console.log(final)
-      localPromise = $http({
-                      method: 'GET',
-                      url: final
-      })
-        .success(function (result) {
 
-          console.log("successful register")
+       $http({method: 'GET', url: final})
+          .success(function (response) {
+          deferred.resolve(response);
 
-        })
-        .error(function () {
-          console.log("there is error in the loading")
-        });
-
-
-
-
-    },
+          }).error(function (error) {
+         deferred.reject(error);
+          });
+      return deferred.promise;
+  },
 
 
     register_Enterprise : function(){
@@ -199,6 +193,7 @@ var final =  url + param_value;
 
       var url = "";
 
+      var deferred = $q.defer();
       url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/enterprise/"
 
       var Companyname = encodeURIComponent(enterprisevalue.CompanyName);
@@ -235,7 +230,7 @@ var final =  url + param_value;
 
 
       var final =  url + param_ent;
-      console.log(Companyname)
+
       console.log(final)
 
 
@@ -244,16 +239,16 @@ var final =  url + param_value;
         url: final,
 
       })
-        .success(function (result) {
+        .success(function (response) {
 
-          console.log("successful Enterprise register")
+          deferred.resolve(response);
 
         })
-        .error(function () {
-          console.log("there is error in the loading")
+        .error(function (error) {
+          deferred.reject(error);
         });
 
-
+      return deferred.promise;
 
     }
   }
