@@ -16,18 +16,14 @@ angular.module('Workforce.controllers', [])
         alertPopup.then(function(res) {
           console.log('invalid credentials');
         });
-
-
       });
-
     };
-
-
-
 
     $scope.logout = function () {
       console.log('This is the login function')
       LoginService.logoutUser();
+      BookmarkService.clearCache();
+      ApplicationService.clearCache();
       $scope.SetUsername = null;
       $state.go('welcome', {}, {reload: true});
     }
@@ -231,7 +227,6 @@ angular.module('Workforce.controllers', [])
   })
 
   .controller('searchResultsCtrl', function ($scope, $ionicSideMenuDelegate, JobService) {
-
     $scope.dragContent = false; // enables scrolling on left side (filter)
     $scope.JobOffers = JobService.getJobOffers();
     $scope.isLoading = JobService.isLoading();
@@ -252,6 +247,8 @@ angular.module('Workforce.controllers', [])
   .controller('jobDetailsCtrl', function ($scope, $stateParams, JobService, LoginService, ApplicationService, BookmarkService) {
     $scope.job = JobService.getJobDetails($stateParams.jobId);
     $scope.isLoggedIn = LoginService.getUser() != "";
+    $scope.isApplied = ApplicationService.isApplied($stateParams.jobId);
+    $scope.isBookmarked = BookmarkService.isBookmarked($stateParams.jobId);
 
     $scope.bookmark = function () {
       BookmarkService.doBookmark($stateParams.jobId);
@@ -269,15 +266,15 @@ angular.module('Workforce.controllers', [])
     }
 
     $scope.$on('applicationListChanged', function () {
-      $scope.job = JobService.getJobDetails($stateParams.jobId);
+      $scope.isApplied = ApplicationService.isApplied($stateParams.jobId);
     });
 
     $scope.$on('bookmarkListChanged', function () {
-      $scope.job = JobService.getJobDetails($stateParams.jobId);
+      $scope.isBookmarked = BookmarkService.isBookmarked($stateParams.jobId);
     });
   })
 
-  .controller('applicationsCtrl', function ($scope, ApplicationService) {
+  .controller('applicationsCtrl', function ($scope, ApplicationService, BookmarkService) {
     $scope.applications = ApplicationService.getApplications();
     $scope.isLoading = true;
     ApplicationService.loadApplications();
@@ -288,7 +285,16 @@ angular.module('Workforce.controllers', [])
 
     $scope.$on('applicationListChanged', function () {
       $scope.applications = ApplicationService.getApplications();
-      $scope.$broadcast('scroll.refreshComplete');
+      // getting bookmark information for applications
+      angular.forEach($scope.applications, function (offer, key) {
+          if (BookmarkService.isBookmarked(offer.id)){
+            offer.isBookmarked = true;
+          }
+          else {
+            offer.isBookmarked = false;
+          }
+      });
+      $scope.$broadcast('scroll.refreshComplete'); // stops animation of pull down refresh
     });
 
     $scope.$on('loadingStateChanged', function () {
@@ -296,7 +302,7 @@ angular.module('Workforce.controllers', [])
     });
   })
 
-  .controller('bookmarksCtrl', function ($scope, BookmarkService) {
+  .controller('bookmarksCtrl', function ($scope, BookmarkService, ApplicationService) {
     $scope.bookmarks = BookmarkService.getBookmarks();
     $scope.isLoading = true;
     BookmarkService.loadBookmarks();
@@ -307,7 +313,16 @@ angular.module('Workforce.controllers', [])
 
     $scope.$on('bookmarkListChanged', function () {
       $scope.bookmarks = BookmarkService.getBookmarks();
-      $scope.$broadcast('scroll.refreshComplete');
+      // getting application information for bookmarks
+      angular.forEach($scope.bookmarks, function (offer, key) {
+        if (ApplicationService.isApplied(offer.id)){
+          offer.isApplied = true;
+        }
+        else {
+          offer.isApplied = false;
+        }
+      });
+      $scope.$broadcast('scroll.refreshComplete'); // stops animation of pull down refresh
     });
 
     $scope.$on('loadingStateChanged', function () {
@@ -315,12 +330,7 @@ angular.module('Workforce.controllers', [])
     });
   })
 
-  .controller('offersCtrl', function ($scope, LoginService, BookmarkService) {
-    $scope.offers = {};
-    BookmarkService.getBookmarks(LoginService.getUser()).then(function (result) {
-      $scope.offers = result.data;
-    });
-  })
+
 
 
 

@@ -68,16 +68,8 @@ angular.module('Workforce.routes', [])
         url: '/bookmarks',
         templateUrl: 'templates/bookmarks.html',
         controller: 'bookmarksCtrl'
-      })
-
-  .state('offers', {
-    url: '/offers',
-    templateUrl: 'templates/offers.html',
-    controller: 'offersCtrl'
-  });
-
-
-
+      });
+  
     // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/welcome');
 

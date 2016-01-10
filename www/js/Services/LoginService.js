@@ -8,12 +8,11 @@ angular.module('Workforce.services')
   .factory ('LoginService',function($q,$http,md5Encryption) {
     var isAuth = false;
     var token = ''; //  Here we will have a unique session id which wil be obtained from rest api
-    var result = false;
     var username = '';
     var detail = [];
-    var accountType= '';
-    var passwordEnc = '';
-    var password = '';
+    var accountType= ''; // indicates if the user is a student, enterprise or admin
+    var passwordEnc = '';// cached password md5 encrypted
+    var password = ''; //cached password in plain text
 
 
 

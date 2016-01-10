@@ -25,27 +25,23 @@ angular.module('Workforce.services', [])
     // public functions
     return {
 
-      isLoading: function()
-      {
+      isLoading: function () {
         return isLoading;
       },
 
-      setBookmarks: function (offers)
-      {
+      setBookmarks: function (offers) {
         bookmarkCache = offers;
         updateBookmarks();
         filterResults();
       },
 
-      setApplications: function (offers)
-      {
+      setApplications: function (offers) {
         applicationCache = offers;
         updateApplications();
         filterResults();
       },
 
-      getJobOffers: function ()
-      {
+      getJobOffers: function () {
         return filteredJobs;
       },
 
@@ -57,24 +53,21 @@ angular.module('Workforce.services', [])
             returnValue = value;
           }
         });
-        if (returnValue.length == 0)
-        {
+        if (returnValue.length == 0) {
           angular.forEach(bookmarkCache, function (value, key) {
             if (value.id == jobId) {
               returnValue = value;
             }
           });
         }
-        if (returnValue.length == 0)
-        {
+        if (returnValue.length == 0) {
           angular.forEach(applicationCache, function (value, key) {
             if (value.id == jobId) {
               returnValue = value;
             }
           });
         }
-        if (returnValue.length == 0)
-        {
+        if (returnValue.length == 0) {
           angular.forEach(filteredJobs, function (value, key) {
             if (value.id == jobId) {
               returnValue = value;
@@ -134,7 +127,7 @@ angular.module('Workforce.services', [])
             .error(function () {
             });
 
-        }else{
+        } else {
           updateBookmarks();
           updateApplications();
           filteredJobs = filterResults();
@@ -243,16 +236,15 @@ angular.module('Workforce.services', [])
       return filtered;
     }
 
-    function updateBookmarks()
-    {
+    function updateBookmarks() {
+      // adding a field isBookmarked to all offers
       var allOffers = [];
       angular.forEach(jobOfferCache, function (offer, key) {
         angular.forEach(bookmarkCache, function (bookmark, key) {
           if (bookmark.id == offer.id) {
             offer.isBookmarked = true;
           }
-          else
-          {
+          else {
             offer.isBookmarked = false;
           }
         });
@@ -261,16 +253,15 @@ angular.module('Workforce.services', [])
       jobOfferCache = allOffers;
     }
 
-    function updateApplications()
-    {
+    function updateApplications() {
+      // adding a field isApplied to all offers
       var allOffers = [];
       angular.forEach(jobOfferCache, function (offer, key) {
         angular.forEach(applicationCache, function (application, key) {
           if (application.id == offer.id) {
             offer.isApplied = true;
           }
-          else
-          {
+          else {
             offer.isApplied = false;
           }
         });

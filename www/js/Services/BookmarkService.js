@@ -5,13 +5,19 @@ angular.module('Workforce.services')
 
   .factory('BookmarkService', function($http,$rootScope,  LoginService, JobService) {
 
-    var bookmarkCache = [];
-    var isLoading = false;
+    var bookmarkCache = []; // for caching the response from the Server
+    var isLoading = false; // indicates if a HttpRequest is going on
 
     return{
       isLoading: function()
       {
         return isLoading;
+      },
+
+      clearCache:function()
+      {
+        bookmarkCache= [];
+        JobService.setBookmarks([]);
       },
 
       loadBookmarks : function() {
@@ -64,15 +70,20 @@ angular.module('Workforce.services')
       $http({method: 'GET', url: url})
         .success(function (result) {
           var allBookmarks = [];
+          // remove underscores from Enum fields
           angular.forEach(result, function (value, key) {
             var temp = value.job;
             temp.field = temp.field.replace("_", " ");
             temp.jobType = temp.jobType.replace("_", " ");
             temp.education = temp.education.replace("_", " ");
+            temp.isBookmarked = true;
             allBookmarks.push(temp);
           })
+          // update Jobs in JobService with bookmark information
           bookmarkCache = allBookmarks;
           JobService.setBookmarks(allBookmarks);
+
+          // update GUI
           $rootScope.$broadcast("bookmarkListChanged");
           isLoading = false;
           $rootScope.$broadcast("loadingStateChanged");
