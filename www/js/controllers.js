@@ -1,5 +1,5 @@
 angular.module('Workforce.controllers', [])
-  .controller('loginCtrl', function ($scope, LoginService, $state, $rootScope, ApplicationService, BookmarkService) {
+  .controller('loginCtrl', function ($scope, LoginService, $state,$ionicPopup, $rootScope, ApplicationService, BookmarkService) {
     $scope.data = {};
     $scope.login = function () {
 
@@ -29,8 +29,7 @@ angular.module('Workforce.controllers', [])
       console.log('This is the login function')
       LoginService.logoutUser();
       $scope.SetUsername = null;
-      $state.go('welcome', {}, {reload: true})
-      $rootScope.apply();
+      $state.go('welcome', {}, {reload: true});
       ApplicationService.resetInitilized();
       BookmarkService.resetInitilized();
     }
