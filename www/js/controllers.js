@@ -30,8 +30,6 @@ angular.module('Workforce.controllers', [])
       LoginService.logoutUser();
       $scope.SetUsername = null;
       $state.go('welcome', {}, {reload: true});
-      ApplicationService.resetInitilized();
-      BookmarkService.resetInitilized();
     }
 
 
@@ -254,8 +252,6 @@ angular.module('Workforce.controllers', [])
   .controller('jobDetailsCtrl', function ($scope, $stateParams, JobService, LoginService, ApplicationService, BookmarkService) {
     $scope.job = JobService.getJobDetails($stateParams.jobId);
     $scope.isLoggedIn = LoginService.getUser() != "";
-    $scope.isBookmarked = BookmarkService.isBookmarked($stateParams.jobId);
-    $scope.isApplied = ApplicationService.isApplied($stateParams.jobId);
 
     $scope.bookmark = function () {
       BookmarkService.doBookmark($stateParams.jobId);
@@ -264,8 +260,7 @@ angular.module('Workforce.controllers', [])
       BookmarkService.removeBookmark($stateParams.jobId);
     }
 
-    $scope.cancelApplication = function()
-    {
+    $scope.cancelApplication = function () {
       ApplicationService.cancelApplication($stateParams.jobId);
     }
 
@@ -274,11 +269,11 @@ angular.module('Workforce.controllers', [])
     }
 
     $scope.$on('applicationListChanged', function () {
-      $scope.isApplied = ApplicationService.isApplied($stateParams.jobId);
+      $scope.job = JobService.getJobDetails($stateParams.jobId);
     });
 
     $scope.$on('bookmarkListChanged', function () {
-      $scope.isBookmarked = BookmarkService.isBookmarked($stateParams.jobId);
+      $scope.job = JobService.getJobDetails($stateParams.jobId);
     });
   })
 

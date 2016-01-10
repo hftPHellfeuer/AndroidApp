@@ -66,17 +66,17 @@
         </p> -->
       </div>
     <div ng-if="isLoggedIn">
-      <div ng-if="!isBookmarked">
+      <div ng-if="!job.isBookmarked">
         <button style="" ng-click="bookmark()" class="button button-stable button-block  icon-left ion-bookmark">Bookmark</button>
       </div>
-      <div ng-if="isBookmarked">
+      <div ng-if="job.isBookmarked">
         <button style="" ng-click="removeBookmark()" class="button button-balanced button-block  icon-left ion-bookmark">Bookmarked</button>
       </div>
 
-      <div ng-if="!isApplied">
+      <div ng-if="!job.isApplied">
         <button style="" ng-click="apply()" class="button button-stable button-block  icon-left ion-briefcase">Apply</button>
       </div>
-      <div ng-if="isApplied">
+      <div ng-if="job.isApplied">
         <button style="" ng-click="cancelApplication()"class="button button-balanced button-block  icon-left ion-briefcase">Applied</button>
       </div>
 

@@ -7,7 +7,6 @@ angular.module('Workforce.services')
 
     var bookmarkCache = [];
     var isLoading = false;
-    var initialized = false;
 
     return{
       isLoading: function()
@@ -22,16 +21,6 @@ angular.module('Workforce.services')
       getBookmarks: function()
       {
         return bookmarkCache;
-      },
-
-      isInitialized: function()
-      {
-        return initialized;
-      },
-
-      resetInitilized:function()
-      {
-        initialized= false;
       },
 
       isBookmarked: function (jobId)
@@ -83,11 +72,10 @@ angular.module('Workforce.services')
             allBookmarks.push(temp);
           })
           bookmarkCache = allBookmarks;
-          JobService.setJobOffers(allBookmarks);
+          JobService.setBookmarks(allBookmarks);
           $rootScope.$broadcast("bookmarkListChanged");
           isLoading = false;
           $rootScope.$broadcast("loadingStateChanged");
-          initialized= true;
         })
     }
 

@@ -4,14 +4,16 @@
 angular.module('Workforce.services', [])
   .factory('JobService', function ($http, $rootScope) {
 
-    var jobOfferCache = [];
-    var filteredJobs = [];
+    // Cache for different sets of job offers
+    var jobOfferCache = []; // all offers for keywords and location
+    var applicationCache = []; // all applications - set and updated by ApplicationService
+    var bookmarkCache = []; // all boookmarks - set and updated by BookmarkService
+    var filteredJobs = []; // all offers left after filtering
 
-    var isLoading = false;
-
+    var isLoading = false; // indicates if a httpRequest is running
     var searchChanged = true; // indicates that location or keywords changed --> new HTTP Get needed
 
-    var filter = {};
+    var filter = {}; // Filter for filtering job offers
     filter.salary = 0;
     filter.experience = 0;
     filter.field = "";
@@ -20,7 +22,7 @@ angular.module('Workforce.services', [])
     filter.keywords = "";
     filter.location = "";
 
-    // public funtions
+    // public functions
     return {
 
       isLoading: function()
@@ -28,10 +30,18 @@ angular.module('Workforce.services', [])
         return isLoading;
       },
 
-      setJobOffers: function (offers)
+      setBookmarks: function (offers)
       {
-        jobOfferCache = offers;
-        searchChanged = true;
+        bookmarkCache = offers;
+        updateBookmarks();
+        filterResults();
+      },
+
+      setApplications: function (offers)
+      {
+        applicationCache = offers;
+        updateApplications();
+        filterResults();
       },
 
       getJobOffers: function ()
@@ -40,13 +50,30 @@ angular.module('Workforce.services', [])
       },
 
       getJobDetails: function (jobId) {
+        // Search through all Cached data to find the requests offer
         var returnValue = []
         angular.forEach(jobOfferCache, function (value, key) {
           if (value.id == jobId) {
             returnValue = value;
           }
         });
-        if (returnValue.length == 0) // needed when applied or bookmarked before
+        if (returnValue.length == 0)
+        {
+          angular.forEach(bookmarkCache, function (value, key) {
+            if (value.id == jobId) {
+              returnValue = value;
+            }
+          });
+        }
+        if (returnValue.length == 0)
+        {
+          angular.forEach(applicationCache, function (value, key) {
+            if (value.id == jobId) {
+              returnValue = value;
+            }
+          });
+        }
+        if (returnValue.length == 0)
         {
           angular.forEach(filteredJobs, function (value, key) {
             if (value.id == jobId) {
@@ -58,9 +85,14 @@ angular.module('Workforce.services', [])
       },
 
       loadJobOffers: function () {
+        // Only fetch jobs from Server if keywords or location changed.
+        // Else only filter down the already fetched and Cached data
         if (searchChanged) {
+          // changing loading circle on GUI
           isLoading = true;
           $rootScope.$broadcast("loadingStateChanged");
+
+          // create URL
           var locationEncoded = encodeURIComponent(filter.location);
           var keywordsEncoded = encodeURIComponent(filter.keywords);
           var url = "";
@@ -77,18 +109,24 @@ angular.module('Workforce.services', [])
             url = "http://jobcenter-hftspws10.rhcloud.com/rest/jobs/" + keywordsEncoded + "/" + locationEncoded;
           }
 
+          // Call Server
           $http({method: 'GET', url: url})
             .success(function (result) {
               jobOfferCache = [];
+              // remove underscores from Enum fields
               angular.forEach(result, function (value, key) {
-
                 var temp = value;
                 temp.field = temp.field.replace("_", " ");
                 temp.jobType = temp.jobType.replace("_", " ");
                 temp.education = temp.education.replace("_", " ");
                 jobOfferCache.push(temp);
               })
+              // apply filter to job offers
+              updateBookmarks();
+              updateApplications();
               filteredJobs = filterResults();
+
+              // changing loading circle on GUI
               isLoading = false;
               $rootScope.$broadcast("jobListChanged");
               $rootScope.$broadcast("loadingStateChanged");
@@ -97,6 +135,8 @@ angular.module('Workforce.services', [])
             });
 
         }else{
+          updateBookmarks();
+          updateApplications();
           filteredJobs = filterResults();
         }
       },
@@ -174,16 +214,19 @@ angular.module('Workforce.services', [])
       var filtered = jobOfferCache;
       if (filter.field != "") {
         filtered = filtered.filter(function (job) {
+          // remove underscores from Enum fields
           return job.field.replace("_", " ") == filter.field
         });
       }
       if (filter.type != "") {
         filtered = filtered.filter(function (job) {
+          // remove underscores from Enum fields
           return job.jobType.replace("_", " ") == filter.type
         });
       }
       if (filter.education != "") {
         filtered = filtered.filter(function (job) {
+          // remove underscores from Enum fields
           return job.education.replace("_", " ") == filter.education
         });
       }
@@ -198,5 +241,41 @@ angular.module('Workforce.services', [])
         });
       }
       return filtered;
+    }
+
+    function updateBookmarks()
+    {
+      var allOffers = [];
+      angular.forEach(jobOfferCache, function (offer, key) {
+        angular.forEach(bookmarkCache, function (bookmark, key) {
+          if (bookmark.id == offer.id) {
+            offer.isBookmarked = true;
+          }
+          else
+          {
+            offer.isBookmarked = false;
+          }
+        });
+        allOffers.push(offer)
+      });
+      jobOfferCache = allOffers;
+    }
+
+    function updateApplications()
+    {
+      var allOffers = [];
+      angular.forEach(jobOfferCache, function (offer, key) {
+        angular.forEach(applicationCache, function (application, key) {
+          if (application.id == offer.id) {
+            offer.isApplied = true;
+          }
+          else
+          {
+            offer.isApplied = false;
+          }
+        });
+        allOffers.push(offer)
+      });
+      jobOfferCache = allOffers;
     }
   })

@@ -11,7 +11,7 @@
     <ion-refresher pulling-text="Pull to refresh" spinner="bubbles" on-refresh="doRefresh()">
     </ion-refresher>
     <div class="list">
-      <a class="item card item-icon-left" data-ng-repeat="offer in applications" href="#/jobDetails/{{offer.id}}">
+      <a class="item card padding-right-top-bottom-2 item-icon-left" data-ng-repeat="offer in applications" href="#/jobDetails/{{offer.id}}">
         <i ng-if="offer.applicationStatus == 'Open'" class="icon ion-help"></i>
         <i ng-if="offer.applicationStatus == 'Accepted'" class="icon ion-checkmark-round"></i>
         <i ng-if="offer.applicationStatus == 'Declined'" class="icon ion-close-round"></i>

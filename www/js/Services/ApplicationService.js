@@ -8,7 +8,6 @@ angular.module('Workforce.services')
 
   var applicationCache = [];
   var isLoading = false;
-  var initialized = false;
 
   return{
     isLoading: function()
@@ -23,16 +22,6 @@ angular.module('Workforce.services')
     getApplications: function()
     {
       return applicationCache;
-    },
-
-    isInitialized: function()
-    {
-      return initialized;
-    },
-
-    resetInitialized:function()
-    {
-      initialized= false;
     },
 
     isApplied: function (jobId)
@@ -86,11 +75,10 @@ angular.module('Workforce.services')
           allApplications.push(temp);
         })
         applicationCache = allApplications;
-        JobService.setJobOffers(allApplications);
+        JobService.setApplications(allApplications);
         $rootScope.$broadcast("applicationListChanged");
         isLoading = false;
         $rootScope.$broadcast("loadingStateChanged");
-        initialized= true;
       })
   }
 
