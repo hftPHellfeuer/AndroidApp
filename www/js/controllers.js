@@ -45,7 +45,7 @@ angular.module('Workforce.controllers', [])
     }
   })
 
-  .controller('registerCtrl', function ($scope, $http, RegisterService, $state) {
+  .controller('registerCtrl', function ($scope, $http,$ionicPopup, RegisterService, $state) {
 
     $scope.value = {};
     $scope.entprisevalue = {};
