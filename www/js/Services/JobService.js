@@ -2,7 +2,7 @@
  * Created by Patrick on 23.11.2015.
  */
 angular.module('Workforce.services', [])
-  .factory('JobService', function ($http, $rootScope) {
+  .factory('JobService', function ($http, $rootScope, $ionicPopup) {
 
     // Cache for different sets of job offers
     var jobOfferCache = []; // all offers for keywords and location
@@ -125,6 +125,11 @@ angular.module('Workforce.services', [])
               $rootScope.$broadcast("loadingStateChanged");
             })
             .error(function () {
+              var alertPopup = $ionicPopup.alert({
+                title: 'Error!',
+                template: 'Can not reach the Server'
+
+              });
             });
 
         } else {
