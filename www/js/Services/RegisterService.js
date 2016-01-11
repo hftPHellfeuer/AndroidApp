@@ -139,7 +139,7 @@ angular.module('Workforce.services')
       var url = "";
       var deferred = $q.defer();
 
-      url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"
+      url="http://cors.io/?u=http://jobcenter-hftspws10.rhcloud.com/rest/account/register/student/"
       var Fname = encodeURIComponent(value.FirstName);
       var Lname = encodeURIComponent(value.LastName);
       var Finaltime = encodeURIComponent(value.fin);
@@ -194,7 +194,7 @@ var final =  url + param_value;
       var url = "";
 
       var deferred = $q.defer();
-      url="http://jobcenter-hftspws10.rhcloud.com/rest/account/register/enterprise/"
+      url="http://cors.io/?u=http://jobcenter-hftspws10.rhcloud.com/rest/account/register/enterprise/"
 
       var Companyname = encodeURIComponent(enterprisevalue.CompanyName);
 
