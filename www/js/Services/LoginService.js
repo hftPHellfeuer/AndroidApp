@@ -48,7 +48,7 @@ angular.module('Workforce.services')
         var enc_pw = md5Encryption.getHash(pw);
         console.log(enc_pw)
 
-        var url = "http://cors.io/?u=http://jobcenter-hftspws10.rhcloud.com/rest/account/login/" + email + "/" + pw;
+        var url = "http://jobcenter-hftspws10.rhcloud.com/rest/account/login/" + email + "/" + pw;
         console.log(url);
 
          $http({method: 'GET', url: url}).success(function (result){
