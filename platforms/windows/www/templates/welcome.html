@@ -1,0 +1,57 @@
+﻿<ion-view style="" title="Welcome" ng-app="Workforce" ng-controller="welcomeCtrl" cache-view="false">
+  <ion-content padding="true">
+    <br>
+    <img class="padding-bottom" style="width: 100%; height: auto;" src="img/Logo_with_Text.png" height="auto" width="100%">
+
+
+    <form style="" class="list padding-top">
+        <h4 class="text-center grey-text padding-top "> Find your job</h4>
+
+      <label style="" name="Search" class="padding-top padding-bottom item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input placeholder="Search for Keywords" type="text" ng-model="keywords">
+      </label>
+        <h4 class=" grey-text text-center">in</h4>
+
+      <label style="" name="Location" class="padding-top padding-bottom item item-input">
+        <i class="icon ion-location placeholder-icon"></i>
+        <input placeholder="Location" type="text" ng-model="location">
+      </label>
+      <br>
+      <button class=" padding-top padding-bottom button button-stable button-block  icon-left ion-search"
+         ng-click="search()">Search</button>
+    </form>
+
+
+      <div class="card" ng-if="username != ''">
+        <div class="item item-divider">
+          Welcome, {{username}}
+        </div>
+
+        <div ng-if="!isEnterprise" >
+          <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-android-person"
+             href="#/applications">My Application</a>
+          <a class="button margin-5 padding-top padding-bottom button-stable button-block  icon-left ion-bookmark"
+             href="#/bookmarks">My Bookmarks</a>
+        </div>
+
+        <div ng-if="isEnterprise" >
+         <!-- <a class="button margin-5 padding-top padding-bottom button-stable button-block icon-left ion-clipboard"
+             href="#/offers">My Offers</a>-->
+        </div>
+        <a ng-controller="loginCtrl" ng-click="logout()" style=""
+           class="button padding-top padding-bottom margin-5 button-stable button-block  icon-left ion-android-person">Log out</a>
+      </div>
+
+
+      <div style="" class="button-bar">
+        <br>
+        <a ng-if="username == ''" style="" class="button button-stable padding-top padding-bottom button-block icon-left ion-android-person"
+           href="#/login">Log In</a>
+        <a ng-if="username == ''" style="" class="button button-stable padding-top padding-bottom button-block icon-left ion-ios-body"
+           href="#/register">Register</a>
+      </div>
+
+
+  </ion-content>
+</ion-view>

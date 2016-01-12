@@ -1,94 +1,61 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.example264986" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>WorkForce</name>
-  <description>
-    Job offer App for Software Project at HFT
-  </description>
-  <author email="51hepa1mst@hft-stuttgart.de" >
-    Patrick Hellfeuer
-  </author>
-  <content src="index.html" />
-  <preference name="permissions"                  value="none" />
-  <preference name="webviewbounce"                value="false" />
-  <preference name="StatusBarOverlaysWebView"     value="false" />
-  <preference name="StatusBarBackgroundColor"     value="#0177C6" />
-  <preference name="detect-data-types"            value="true" />
-  <preference name="stay-in-webview"              value="false" />
-  <preference name="android-minSdkVersion"        value="14" />
-  <preference name="android-targetSdkVersion"     value="22" />
-  <preference name="phonegap-version"             value="cli-5.1.1" />
-  <preference name="SplashScreenDelay"            value="10000" />
-  <preference name="SplashScreen"                 value="screen" />
-
-  // install plugin from npm (all lines result in identical functionality)
-  <gap:plugin name="cordova-plugin-whitelist" source="npm" version="~1" />
-  <plugin name="cordova-plugin-whitelist" version="~1" />
-  <plugin name="cordova-plugin-whitelist" spec="~1" />
-
-  
-  <plugin name="cordova-plugin-device" spec="1.0.1" source="pgb" />
-  <plugin name="cordova-plugin-console" spec="1.0.1" source="pgb" />
-
-  <access origin="http://*" />
-  <access origin="https://*" />
-
-  <access launch-external="yes" origin="tel:*" />
-  <access launch-external="yes" origin="geo:*" />
-  <access launch-external="yes" origin="mailto:*" />
-  <access launch-external="yes" origin="sms:*" />
-  <access launch-external="yes" origin="market:*" />
-
-  <platform name="android">
-    <icon src="www/img/WorkForce_Logo.png" density="ldpi" />
-    <icon src="www/img/WorkForce_Logo.png" density="mdpi" />
-    <icon src="www/img/WorkForce_Logo.png" density="hdpi" />
-    <icon src="www/img/WorkForce_Logo.png" density="xhdpi" />
-    <icon src="www/img/WorkForce_Logo.png" density="xxhdpi" />
-    <icon src="www/img/WorkForce_Logo.png" density="xxxhdpi" />
-    <splash src="www/stample_splash.png" density="land-hdpi"/>
-    <splash src="www/stample_splash.png" density="land-ldpi"/>
-    <splash src="www/stample_splash.png" density="land-mdpi"/>
-    <splash src="www/stample_splash.png" density="land-xhdpi"/>
-    <splash src="www/stample_splash.png" density="land-xhdpi"/>
-    <splash src="www/stample_splash.png" density="land-xhdpi"/>
-    <splash src="www/stample_splash.png" density="port-hdpi"/>
-    <splash src="www/stample_splash.png" density="port-ldpi"/>
-    <splash src="www/stample_splash.png" density="port-mdpi"/>
-    <splash src="www/stample_splash.png" density="port-xhdpi"/>
-    <splash src="www/stample_splash.png" density="port-xxhdpi"/>
-    <splash src="www/stample_splash.png" density="port-xxxhdpi"/>
-  </platform>
-
-  <platform name="ios">
-    <icon src="www/img/WorkForce_Logo.png" width="180" height="180" />
-    <icon src="www/img/WorkForce_Logo.png" width="60" height="60" />
-    <icon src="www/img/WorkForce_Logo.png" width="120" height="120" />
-    <icon src="www/img/WorkForce_Logo.png" width="76" height="76" />
-    <icon src="www/img/WorkForce_Logo.png" width="152" height="152" />
-    <icon src="www/img/WorkForce_Logo.png" width="40" height="40" />
-    <icon src="www/img/WorkForce_Logo.png" width="80" height="80" />
-    <icon src="www/img/WorkForce_Logo.png" width="57" height="57" />
-    <icon src="www/img/WorkForce_Logo.png" width="114" height="114" />
-    <icon src="www/img/WorkForce_Logo.png" width="72" height="72" />
-    <icon src="www/img/WorkForce_Logo.png" width="144" height="144" />
-    <icon src="www/img/WorkForce_Logo.png" width="29" height="29" />
-    <icon src="www/img/WorkForce_Logo.png" width="58" height="58" />
-    <icon src="www/img/WorkForce_Logo.png" width="50" height="50" />
-    <icon src="www/img/WorkForce_Logo.png" width="100" height="100" />
-    <splash src="www/stample_splash.png" width="320" height="480"/>
-    <splash src="www/stample_splash.png" width="640" height="960"/>
-    <splash src="www/stample_splash.png" width="768" height="1024"/>
-    <splash src="www/stample_splash.png" width="1536" height="2048"/>
-    <splash src="www/stample_splash.png" width="1024" height="768"/>
-    <splash src="www/stample_splash.png" width="2048" height="1536"/>
-    <splash src="www/stample_splash.png" width="640" height="1136"/>
-    <splash src="www/stample_splash.png" width="750" height="1334"/>
-    <splash src="www/stample_splash.png" width="1242" height="2208"/>
-    <splash src="www/stample_splash.png" width="2208" height="1242"/>
-  </platform>
-
-  <allow-intent href="*" />
-  <engine name="browser" spec="^3.6.0" />
-  <engine name="android" spec="^4.0.2" />
-
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.phonegap.workforce" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>WorkForce</name>
+    <description>
+        Job Offer application for the Software Project at HFT Stuttgart
+    </description>
+    <author email="51hepa1mst@hft-stuttgart.de">
+        WorkForceTeam
+    </author>
+    <content src="index.html" />
+    <preference name="permissions" value="none" />
+    <preference name="orientation" value="default" />
+    <preference name="target-device" value="universal" />
+    <preference name="fullscreen" value="true" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="stay-in-webview" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="auto-hide-splash-screen" value="true" />
+    <preference name="disable-cursor" value="false" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-installLocation" value="auto" />
+    <gap:plugin name="org.apache.cordova.battery-status" />
+    <gap:plugin name="org.apache.cordova.camera" />
+    <gap:plugin name="org.apache.cordova.media-capture" />
+    <gap:plugin name="org.apache.cordova.console" />
+    <gap:plugin name="org.apache.cordova.contacts" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="org.apache.cordova.device-motion" />
+    <gap:plugin name="org.apache.cordova.device-orientation" />
+    <gap:plugin name="org.apache.cordova.dialogs" />
+    <gap:plugin name="org.apache.cordova.file" />
+    <gap:plugin name="org.apache.cordova.file-transfer" />
+    <gap:plugin name="org.apache.cordova.geolocation" />
+    <gap:plugin name="org.apache.cordova.globalization" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.media" />
+    <gap:plugin name="org.apache.cordova.network-information" />
+    <gap:plugin name="org.apache.cordova.splashscreen" />
+    <gap:plugin name="org.apache.cordova.vibration" />
+    <icon src="www/img/WorkForce_Logo.png" />
+   
+    <access origin="*" />
+    <plugin name="cordova-plugin-whitelist" version="1" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
 </widget>

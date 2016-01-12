@@ -1,0 +1,14 @@
+﻿<div class="item-divider">
+  <p class="padding-left-5">
+    <i ng-if="offer.isBookmarked" class="icon-left ion-bookmark"></i>
+  <i ng-if="offer.isApplied" class="icon-left ion-briefcase"></i>
+    {{offer.title}}
+   </p>
+</div>
+<div class="item-text-wrap">
+ <p class="padding-left-5"> {{offer.field}}
+  </p>
+</div>
+<div class="item-divider">
+  <p class="padding-left-5">{{offer.enterprise.companyName}}, {{offer.location}}</p>
+</div>

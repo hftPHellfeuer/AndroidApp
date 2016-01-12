@@ -1,0 +1,86 @@
+<ion-view style="" title="Job Details" ng-controller="jobDetailsCtrl" cache-view="false">
+  <ion-content padding="true">
+
+    <h2 style="">{{job.title}}</h2>
+     <h3 style="">{{job.jobType}}</h3>
+     <h3 style="">{{job.enterprise.companyName}}</h3>
+    <h5 style="">{{job.location}}</h5>
+    <h3 style="">{{job.minSalary}} - {{job.maxSalary}} Euro</h3>
+
+    <div style=""><b>
+      <u>Description :</u>
+    </b>
+      <p> {{job.description}}</p>
+    </div>
+    <div style="">
+      <p>
+        <b>
+          <u>Field :</u>
+        </b>{{job.field}}
+      </p>
+
+      <p>
+        <b>
+          <u>Deadline :</u>
+        </b>{{job.applicationDeadline}}
+      </p>
+
+         <p>
+           <b>
+             <u>min. Education Level :</u>
+           </b>{{job.education}}</p>
+
+         <p>
+         </p>
+
+         <p>
+           <b>
+             <u>min. Experience Level :</u>
+           </b> {{job.minYearsOfExperience}} years</p>
+
+         <p>
+           <b>
+             <u>Start date :</u>
+           </b> {{job.startDate}}
+         </p>
+
+         <p>
+           <b>
+             <u>Key Skills:</u>
+           </b>
+         <ul class="bullletList">
+            {{job.keySkills}}
+         </ul>
+         </p>
+
+      <!--   <p>
+          <b>
+            <u>tags :</u>
+          </b>b ### tags not supplied
+        </p>
+
+        <p>
+          <b>
+            <u>Viewed :</u>
+          </b>{{job.timesOfVisits}} times
+        </p> -->
+      </div>
+    <div ng-if="isLoggedIn">
+      <div ng-if="!isBookmarked">
+        <button style="" ng-click="bookmark()" class="button button-stable button-block  icon-left ion-bookmark">Bookmark</button>
+      </div>
+      <div ng-if="isBookmarked">
+        <button style="" ng-click="removeBookmark()" class="button button-balanced button-block  icon-left ion-bookmark">Bookmarked</button>
+      </div>
+
+      <div ng-if="!isApplied">
+        <button style="" ng-click="apply()" class="button button-stable button-block  icon-left ion-briefcase">Apply</button>
+      </div>
+      <div ng-if="isApplied">
+        <button style="" ng-click="cancelApplication()"class="button button-balanced button-block  icon-left ion-briefcase">Applied</button>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>

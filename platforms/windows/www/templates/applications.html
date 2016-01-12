@@ -1,0 +1,24 @@
+﻿<ion-view style="" ng-controller="applicationsCtrl" class="has-header">
+  <ion-header-bar>
+    <h1 class="title font-size-24 grey-text">My Applications</h1>
+  </ion-header-bar>
+  <ion-content padding="true" title="My Applications">
+    <div class="text-center" ng-if="isLoading">
+      <br>
+      <ion-spinner icon="bubbles"></ion-spinner>
+      <h1 class="title font-size-24 grey-text">loading applications</h1>
+    </div>
+    <ion-refresher pulling-text="Pull to refresh" spinner="bubbles" on-refresh="doRefresh()">
+    </ion-refresher>
+    <div class="list">
+      <a class="item card padding-right-top-bottom-2 item-icon-left" data-ng-repeat="offer in applications" href="#/jobDetails/{{offer.id}}">
+        <i ng-if="offer.applicationStatus == 'Open'" class="icon ion-help"></i>
+        <i ng-if="offer.applicationStatus == 'Accepted'" class="icon ion-checkmark-round"></i>
+        <i ng-if="offer.applicationStatus == 'Declined'" class="icon ion-close-round"></i>
+        <i ng-if="offer.applicationStatus == 'Cancel'" class="icon ion-trash-a"></i>
+        <div ng-include="'templates/common/jobOffer.html'"></div>
+      </a>
+    </div>
+  </ion-content>
+</ion-view>
+
