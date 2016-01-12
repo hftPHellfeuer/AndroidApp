@@ -20,7 +20,12 @@
   <preference name="SplashScreenDelay"            value="10000" />
   <preference name="SplashScreen"                 value="screen" />
 
-  <plugin name="com.indigoway.cordova.whitelist.whitelistplugin" spec="1.1.1" source="pgb" />
+  // install plugin from npm (all lines result in identical functionality)
+  <gap:plugin name="cordova-plugin-whitelist" source="npm" version="~1" />
+  <plugin name="cordova-plugin-whitelist" version="~1" />
+  <plugin name="cordova-plugin-whitelist" spec="~1" />
+
+  
   <plugin name="cordova-plugin-device" spec="1.0.1" source="pgb" />
   <plugin name="cordova-plugin-console" spec="1.0.1" source="pgb" />
 
