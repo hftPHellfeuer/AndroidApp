@@ -1,43 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.example264986" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>example</name>
+  <name>WorkForce</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
-    </author>
-  <content src="index.html"/>
-  <access origin="*"/>
-  <allow-navigation href="*" />
-  <preference name="webviewbounce" value="false"/>
-  <preference name="UIWebViewBounce" value="false"/>
-  <preference name="DisallowOverscroll" value="true"/>
-  <preference name="android-minSdkVersion" value="16"/>
-  <preference name="BackupWebStorage" value="none"/>
-  <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="3000"/>
-  <feature name="StatusBar">
-    <param name="ios-package" value="CDVStatusBar" onload="true"/>
-  </feature>
+    Job offer App for Software Project at HFT
+  </description>
+  <author email="51hepa1mst@hft-stuttgart.de" >
+    Patrick Hellfeuer
+  </author>
+  <content src="index.html" />
+  <preference name="permissions"                  value="none" />
+  <preference name="webviewbounce"                value="false" />
+  <preference name="StatusBarOverlaysWebView"     value="false" />
+  <preference name="StatusBarBackgroundColor"     value="#0177C6" />
+  <preference name="detect-data-types"            value="true" />
+  <preference name="stay-in-webview"              value="false" />
+  <preference name="android-minSdkVersion"        value="14" />
+  <preference name="android-targetSdkVersion"     value="22" />
+  <preference name="phonegap-version"             value="cli-5.1.1" />
+  <preference name="SplashScreenDelay"            value="10000" />
+  <preference name="SplashScreen"                 value="screen" />
+
+
+  <plugin name="cordova-plugin-device"                spec="1.0.1" />
+  <plugin name="cordova-plugin-console"               spec="1.0.1" />
+  <plugin name="cordova-plugin-whitelist"             spec="1.1.0" />
+  <plugin name="cordova-plugin-statusbar"             spec="1.0.1" />
+  <plugin name="cordova-plugin-splashscreen"          spec="2.1.0" />
+
+  <access origin="http://*" />
+  <access origin="https://*" />
+
+  <access launch-external="yes" origin="tel:*" />
+  <access launch-external="yes" origin="geo:*" />
+  <access launch-external="yes" origin="mailto:*" />
+  <access launch-external="yes" origin="sms:*" />
+  <access launch-external="yes" origin="market:*" />
+
   <platform name="android">
-    <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
-    <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
-    <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
-    <icon src="resources/android/icon/drawable-xhdpi-icon.png" density="xhdpi"/>
-    <icon src="resources/android/icon/drawable-xxhdpi-icon.png" density="xxhdpi"/>
-    <icon src="resources/android/icon/drawable-xxxhdpi-icon.png" density="xxxhdpi"/>
-    <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
-    <splash src="resources/android/splash/drawable-land-mdpi-screen.png" density="land-mdpi"/>
-    <splash src="resources/android/splash/drawable-land-hdpi-screen.png" density="land-hdpi"/>
-    <splash src="resources/android/splash/drawable-land-xhdpi-screen.png" density="land-xhdpi"/>
-    <splash src="resources/android/splash/drawable-land-xxhdpi-screen.png" density="land-xxhdpi"/>
-    <splash src="resources/android/splash/drawable-land-xxxhdpi-screen.png" density="land-xxxhdpi"/>
-    <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi"/>
-    <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi"/>
-    <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi"/>
-    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
-    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
+    <icon src="www/img/WorkForce_Logo.png" density="ldpi" />
+    <icon src="www/img/WorkForce_Logo.png" density="mdpi" />
+    <icon src="www/img/WorkForce_Logo.png" density="hdpi" />
+    <icon src="www/img/WorkForce_Logo.png" density="xhdpi" />
+    <icon src="www/img/WorkForce_Logo.png" density="xxhdpi" />
+    <icon src="www/img/WorkForce_Logo.png" density="xxxhdpi" />
+    <splash src="www/stample_splash.png" density="land-hdpi"/>
+    <splash src="www/stample_splash.png" density="land-ldpi"/>
+    <splash src="www/stample_splash.png" density="land-mdpi"/>
+    <splash src="www/stample_splash.png" density="land-xhdpi"/>
+    <splash src="www/stample_splash.png" density="land-xhdpi"/>
+    <splash src="www/stample_splash.png" density="land-xhdpi"/>
+    <splash src="www/stample_splash.png" density="port-hdpi"/>
+    <splash src="www/stample_splash.png" density="port-ldpi"/>
+    <splash src="www/stample_splash.png" density="port-mdpi"/>
+    <splash src="www/stample_splash.png" density="port-xhdpi"/>
+    <splash src="www/stample_splash.png" density="port-xxhdpi"/>
+    <splash src="www/stample_splash.png" density="port-xxxhdpi"/>
   </platform>
+
+  <platform name="ios">
+    <icon src="www/img/WorkForce_Logo.png" width="180" height="180" />
+    <icon src="www/img/WorkForce_Logo.png" width="60" height="60" />
+    <icon src="www/img/WorkForce_Logo.png" width="120" height="120" />
+    <icon src="www/img/WorkForce_Logo.png" width="76" height="76" />
+    <icon src="www/img/WorkForce_Logo.png" width="152" height="152" />
+    <icon src="www/img/WorkForce_Logo.png" width="40" height="40" />
+    <icon src="www/img/WorkForce_Logo.png" width="80" height="80" />
+    <icon src="www/img/WorkForce_Logo.png" width="57" height="57" />
+    <icon src="www/img/WorkForce_Logo.png" width="114" height="114" />
+    <icon src="www/img/WorkForce_Logo.png" width="72" height="72" />
+    <icon src="www/img/WorkForce_Logo.png" width="144" height="144" />
+    <icon src="www/img/WorkForce_Logo.png" width="29" height="29" />
+    <icon src="www/img/WorkForce_Logo.png" width="58" height="58" />
+    <icon src="www/img/WorkForce_Logo.png" width="50" height="50" />
+    <icon src="www/img/WorkForce_Logo.png" width="100" height="100" />
+    <splash src="www/stample_splash.png" width="320" height="480"/>
+    <splash src="www/stample_splash.png" width="640" height="960"/>
+    <splash src="www/stample_splash.png" width="768" height="1024"/>
+    <splash src="www/stample_splash.png" width="1536" height="2048"/>
+    <splash src="www/stample_splash.png" width="1024" height="768"/>
+    <splash src="www/stample_splash.png" width="2048" height="1536"/>
+    <splash src="www/stample_splash.png" width="640" height="1136"/>
+    <splash src="www/stample_splash.png" width="750" height="1334"/>
+    <splash src="www/stample_splash.png" width="1242" height="2208"/>
+    <splash src="www/stample_splash.png" width="2208" height="1242"/>
+  </platform>
+
+  <allow-intent href="*" />
+  <engine name="browser" spec="^3.6.0" />
+  <engine name="android" spec="^4.0.2" />
+
 </widget>
